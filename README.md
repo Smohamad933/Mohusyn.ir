@@ -145,3 +145,12 @@ Projects and posts have their own SEO title / description / keywords fields.
 `/work/` lists every published project with category filters; the landing page shows the first
 *N* projects (admin → معرفی و متن‌ها → پورتفولیو) with a "View all" button. **Portfolio** replaced
 **Blog** in the menu; the blog can be re-enabled in the menu from the same settings section.
+
+## Analytics (built-in, privacy-friendly)
+
+`assets/js/analytics.js` sends anonymous beacons to `/track.php` (page views, clicks with button
+labels, per-section dwell time, scroll depth 25/50/75/100 %, device class, referrer host, visit
+duration). Nothing personal is stored — only daily counters in `data/analytics.json` (120 days).
+Admin → **بازدید و رفتار** shows daily trend, most-clicked buttons (%), where users pause,
+scroll funnel per page, contact funnel, devices and referrers. Disable with
+`ANALYTICS_ENABLED = false` in `config.php`. Honors Do-Not-Track.

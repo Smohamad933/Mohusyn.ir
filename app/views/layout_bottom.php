@@ -30,6 +30,9 @@
 </footer>
 
 <script src="<?php echo e(asset('/assets/js/site.js')); ?>"></script>
+<?php if (!defined('ANALYTICS_ENABLED') || ANALYTICS_ENABLED): ?>
+<script src="<?php echo e(asset('/assets/js/analytics.js')); ?>" defer></script>
+<?php endif; ?>
 <?php if (isset($view) && $view === 'contact'): ?>
 <script src="<?php echo e(asset('/assets/js/contact.js')); ?>"></script>
 <?php endif; ?>

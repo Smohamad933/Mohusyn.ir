@@ -141,6 +141,7 @@ function admin_header($active, $pageTitle)
   <?php
   $ico = array(
     'dashboard' => '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+    'analytics' => '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     'messages' => '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
     'settings' => '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
     'projects' => '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
@@ -163,6 +164,7 @@ function admin_header($active, $pageTitle)
     array('group' => 'نمای کلی'),
     array('key' => 'dashboard', 'href' => 'index.php', 'label' => 'داشبورد', 'desc' => 'پیش‌نمایش سایت و دسترسی سریع'),
     array('key' => 'messages', 'href' => 'messages.php', 'label' => 'پیام‌ها', 'desc' => 'درخواست‌های «شروع پروژه»', 'badge' => $unread),
+    array('key' => 'analytics', 'href' => 'analytics.php', 'label' => 'بازدید و رفتار', 'desc' => 'کلیک‌ها، مکث‌ها، اسکرول'),
     array('group' => 'محتوای سایت'),
     array('key' => 'settings', 'href' => 'settings.php', 'label' => 'معرفی و متن‌ها', 'desc' => 'نام، بیو، عکس هدر، ایمیل'),
   );

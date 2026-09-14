@@ -23,6 +23,9 @@ define('MAX_UPLOAD_SIZE', 8 * 1024 * 1024);
 // Allowed upload extensions.
 define('ALLOWED_EXTENSIONS', array('jpg', 'jpeg', 'png', 'gif', 'webp'));
 
+/* First-party, cookie-less analytics (admin → بازدید و رفتار). Set false to disable. */
+define('ANALYTICS_ENABLED', true);
+
 /* Contact-form attachments (public upload): max size + allowed types */
 define('CONTACT_MAX_UPLOAD', 20 * 1024 * 1024);
 define('CONTACT_ALLOWED_EXTENSIONS', array('jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'zip', 'rar', '7z', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'mp4', 'mov', 'mp3', 'ai', 'psd', 'fig', 'sketch'));

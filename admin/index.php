@@ -163,6 +163,7 @@ if ($tab === 'dashboard') {
       <a class="hub-card" href="messages.php"><span class="hub-icon">✉</span><strong>پیام‌های مشتری‌ها را ببینم</strong><p><?php echo e(fa_digits($unreadCount)); ?> پیام خوانده‌نشده از فرم «شروع پروژه».</p><span class="mono">پیام‌ها</span></a>
       <a class="hub-card" href="settings.php#tab-fonts"><span class="hub-icon">Aa</span><strong>فونت سایت را تغییر دهم</strong><p>فونت متن‌های کوچک و فونت تیترها (Doto) — گوگل‌فونت یا آپلود فایل.</p><span class="mono">فونت‌ها</span></a>
       <a class="hub-card" href="index.php?tab=posts&action=edit"><span class="hub-icon">✎</span><strong>مطلب بلاگ بنویسم</strong><p>تا اولین مطلب منتشر نشود، منوی بلاگ در سایت دیده نمی‌شود.</p><span class="mono">نوشته‌ها</span></a>
+      <a class="hub-card" href="analytics.php"><span class="hub-icon">📊</span><strong>ببینم کاربران چه می‌کنند</strong><p>پرکلیک‌ترین دکمه‌ها، بخش‌هایی که رویشان مکث می‌شود، عمق اسکرول و قیف تماس — با نمودار و درصد.</p><span class="mono">بازدید و رفتار</span></a>
       <a class="hub-card" href="seo.php"><span class="hub-icon">🔎</span><strong>سایت در گوگل بهتر دیده شود</strong><p>کلمات کلیدی فارسی و انگلیسی، عنوان و توضیح هر صفحه، کد تأیید گوگل/بینگ و نقشهٔ سایت.</p><span class="mono">سئو</span></a>
       <a class="hub-card" href="media.php"><span class="hub-icon">▤</span><strong>عکس آپلود کنم</strong><p>کتابخانهٔ همهٔ تصاویر؛ کنار هر فیلد تصویر هم دکمهٔ آپلود هست.</p><span class="mono">رسانه‌ها</span></a>
     </div>

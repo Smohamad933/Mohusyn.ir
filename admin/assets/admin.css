@@ -740,3 +740,7 @@ body.rail-open .tab::after { display: none; }
 .seo-check.ok { color: var(--accent); border-color: rgba(215, 255, 62, 0.35); }
 .seo-check.warn { color: #ffb36b; border-color: rgba(255, 179, 107, 0.4); }
 .mono-area { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.82rem; }
+
+.ab-row { display: grid; grid-template-columns: 1.1fr 1.6fr 100px auto auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+.ab-row .switch-sm { font-size: 0.78rem; white-space: nowrap; }
+@media (max-width: 760px) { .ab-row { grid-template-columns: 1fr 1fr; } }

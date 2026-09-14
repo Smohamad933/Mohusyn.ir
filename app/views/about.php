@@ -32,11 +32,21 @@ $showCollaborators = page_shows('about', 'showCollaborators') && !empty($collabo
       <div class="about-text">
         <h2 class="about-name"><?php echo e(setting_bi('fullName', $locale)); ?></h2>
         <p class="about-bio"><?php echo e(setting_bi('bio', $locale)); ?></p>
-        <?php if (setting('workSiteUrl') !== ''): ?>
-          <a class="work-action-btn" href="<?php echo e(setting('workSiteUrl')); ?>" target="_blank" rel="noopener">
-            <?php echo e(setting_bi('workSiteLabel', $locale)); ?> ↗
-          </a>
-        <?php endif; ?>
+        <div class="about-actions">
+          <?php if (setting('workSiteUrl') !== ''): ?>
+            <a class="work-action-btn" href="<?php echo e(setting('workSiteUrl')); ?>" target="_blank" rel="noopener">
+              <?php echo e(setting_bi('workSiteLabel', $locale)); ?> ↗
+            </a>
+          <?php endif; ?>
+          <?php $aboutButtons = setting('aboutButtons', array()); if (is_array($aboutButtons)): foreach ($aboutButtons as $ab):
+              if (!is_array($ab) || empty($ab['label']) || empty($ab['url'])) { continue; }
+              $ext = !empty($ab['newTab']);
+              $solid = isset($ab['style']) && $ab['style'] === 'solid'; ?>
+            <a class="work-action-btn<?php echo $solid ? ' work-action-btn--solid' : ''; ?>" href="<?php echo e($ab['url']); ?>"<?php echo $ext ? ' target="_blank" rel="noopener"' : ''; ?>>
+              <?php echo e($ab['label']); ?><?php echo $ext ? ' ↗' : ''; ?>
+            </a>
+          <?php endforeach; endif; ?>
+        </div>
       </div>
     </div>
   </section>

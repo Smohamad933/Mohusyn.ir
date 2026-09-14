@@ -97,6 +97,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* footer admin link visibility */
     $settings['showAdminLink'] = !empty($_POST['s_showAdminLink']);
+
+    /* custom buttons on the About page */
+    $aboutButtons = array();
+    $labels = isset($_POST['ab_label']) && is_array($_POST['ab_label']) ? $_POST['ab_label'] : array();
+    $urls = isset($_POST['ab_url']) && is_array($_POST['ab_url']) ? $_POST['ab_url'] : array();
+    $styles = isset($_POST['ab_style']) && is_array($_POST['ab_style']) ? $_POST['ab_style'] : array();
+    $news = isset($_POST['ab_new']) && is_array($_POST['ab_new']) ? $_POST['ab_new'] : array();
+    foreach ($labels as $i => $lbl) {
+        $lbl = trim((string) $lbl);
+        $url = isset($urls[$i]) ? trim((string) $urls[$i]) : '';
+        if ($lbl === '' || $url === '') {
+            continue;
+        }
+        $aboutButtons[] = array(
+            'label' => $lbl,
+            'url' => $url,
+            'style' => isset($styles[$i]) && $styles[$i] === 'solid' ? 'solid' : 'outline',
+            'newTab' => !empty($news[$i]),
+        );
+    }
+    $settings['aboutButtons'] = $aboutButtons;
     /* portfolio archive + blog menu */
     $settings['showBlogInMenu'] = !empty($_POST['s_showBlogInMenu']);
     $settings['portfolioTitle'] = isset($_POST['s_portfolioTitle']) ? trim((string) $_POST['s_portfolioTitle']) : '';
@@ -168,6 +189,27 @@ admin_flash();
     </div>
   <?php endforeach; ?>
 
+
+  <h2 class="form-section-title">دکمه‌های صفحهٔ «دربارهٔ من»</h2>
+  <p class="hint">کنار دکمهٔ «سایت کاری» هر تعداد دکمهٔ دلخواه با نام و لینک خودتان بسازید (مثلاً رزومه، اینستاگرام، تلگرام). ردیف خالی نادیده گرفته می‌شود.</p>
+  <div id="about-buttons">
+    <?php
+    $aboutButtons = isset($settings['aboutButtons']) && is_array($settings['aboutButtons']) ? $settings['aboutButtons'] : array();
+    $aboutButtons[] = array('label' => '', 'url' => '', 'style' => 'outline', 'newTab' => true); /* one empty row */
+    foreach ($aboutButtons as $ab): ?>
+      <div class="ab-row">
+        <input type="text" dir="ltr" name="ab_label[]" placeholder="Button text (e.g. Resume)" value="<?php echo e($ab['label']); ?>">
+        <input type="text" dir="ltr" name="ab_url[]" placeholder="https://… or /contact/" value="<?php echo e($ab['url']); ?>">
+        <select name="ab_style[]">
+          <option value="outline" <?php echo $ab['style'] !== 'solid' ? 'selected' : ''; ?>>خطی</option>
+          <option value="solid" <?php echo $ab['style'] === 'solid' ? 'selected' : ''; ?>>توپر</option>
+        </select>
+        <label class="switch switch-sm"><input type="checkbox" name="ab_new[]" value="1" <?php echo !empty($ab['newTab']) ? 'checked' : ''; ?>><span>تب جدید</span></label>
+        <button type="button" class="btn btn-mini btn-danger" data-ab-remove title="حذف">✕</button>
+      </div>
+    <?php endforeach; ?>
+  </div>
+  <button type="button" class="btn btn-mini" id="ab-add">+ دکمهٔ جدید</button>
   </div>
 
   <div class="tab-panel" id="tab-texts" hidden>
@@ -314,6 +356,28 @@ admin_flash();
     try { history.replaceState(null, '', '#' + id); } catch (e) {}
   }
   btns.forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-tab')); }); });
+
+  /* about-page buttons repeater */
+  var abBox = document.getElementById('about-buttons');
+  var abAdd = document.getElementById('ab-add');
+  if (abBox && abAdd) {
+    abAdd.addEventListener('click', function () {
+      var rows = abBox.querySelectorAll('.ab-row');
+      var clone = rows[rows.length - 1].cloneNode(true);
+      clone.querySelectorAll('input[type="text"]').forEach(function (i) { i.value = ''; });
+      clone.querySelector('select').value = 'outline';
+      clone.querySelector('input[type="checkbox"]').checked = true;
+      abBox.appendChild(clone);
+      clone.querySelector('input').focus();
+    });
+    abBox.addEventListener('click', function (ev) {
+      var btn = ev.target.closest('[data-ab-remove]');
+      if (!btn) return;
+      var rows = abBox.querySelectorAll('.ab-row');
+      if (rows.length > 1) btn.closest('.ab-row').remove();
+      else { btn.closest('.ab-row').querySelectorAll('input[type="text"]').forEach(function (i) { i.value = ''; }); }
+    });
+  }
   var h = location.hash.replace('#', '');
   if (h && document.getElementById(h) && document.getElementById(h).classList.contains('tab-panel')) show(h);
   /* if the server reports a validation problem, reveal every panel so nothing is hidden */

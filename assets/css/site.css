@@ -948,6 +948,10 @@ html.dark .work-list-numbered .work-item::before { color: var(--accent); }
 .related-title { font-size: clamp(13px, 1.3vw, 15px); font-weight: var(--fw-bold); margin-top: 5px; color: var(--ink); }
 
 /* ================================================== ABOUT PAGE */
+.about-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.about-actions .work-action-btn { margin-top: 0; }
+.work-action-btn--solid { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.work-action-btn--solid:hover { opacity: 0.88; }
 .about-layout {
   display: flex;
   gap: 40px;

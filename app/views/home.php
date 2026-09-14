@@ -50,7 +50,12 @@ if ($heroImg !== '' && strpos($heroImg, 'uploads/') === 0) { $heroImg = '/' . $h
 <?php
 $homeLimit = (int) setting('homeProjectsLimit', 6);
 if ($homeLimit <= 0) { $homeLimit = 6; }
-$homeProjects = array_slice($projects, 0, $homeLimit);
+/* only projects flagged "show on home" (legacy items without the flag count as shown) */
+$homePool = array();
+foreach ($projects as $hp) {
+    if (!array_key_exists('showOnHome', $hp) || !empty($hp['showOnHome'])) { $homePool[] = $hp; }
+}
+$homeProjects = array_slice($homePool, 0, $homeLimit);
 ?>
 <section class="portfolio-section">
   <div class="portfolio-grid">
@@ -70,7 +75,7 @@ $homeProjects = array_slice($projects, 0, $homeLimit);
       </a>
     <?php endforeach; ?>
   </div>
-  <?php if (count($projects) > count($homeProjects)): ?>
+  <?php if (count($projects) > count($homeProjects) || count($projects) > count($homePool)): ?>
     <div class="portfolio-more">
       <a class="portfolio-more-btn" href="/work/">View all <?php echo e(count($projects)); ?> projects <span class="btn-arrow">→</span></a>
     </div>

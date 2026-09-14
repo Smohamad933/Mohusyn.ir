@@ -30,6 +30,7 @@ function admin_schemas()
                 array('key' => 'slug', 'label' => 'آدرس صفحهٔ کیس‌استادی', 'type' => 'text', 'hint' => 'مثلاً: negahmedia → سایت می‌شود /work/negahmedia — خالی بگذارید تا از عنوان ساخته شود.'),
                 array('key' => 'body', 'label' => 'متن کیس‌استادی', 'type' => 'textarea'),
                 array('key' => 'link', 'label' => 'لینک خارجی پروژه', 'type' => 'url'),
+                array('key' => 'showOnHome', 'label' => 'نمایش در صفحهٔ اصلی', 'type' => 'checkbox', 'hint' => 'اگر خاموش باشد، این پروژه فقط در صفحهٔ Portfolio (/work/) دیده می‌شود.'),
                 array('key' => 'seoTitle', 'label' => 'سئو: عنوان (Title)', 'type' => 'text', 'hint' => 'خالی = خودکار از عنوان و دسته. حداکثر ۷۰ کاراکتر.'),
                 array('key' => 'seoDescription', 'label' => 'سئو: توضیح (Description)', 'type' => 'text', 'hint' => '۱۲۰ تا ۱۶۰ کاراکتر؛ خالی = از متن کیس‌استادی.'),
                 array('key' => 'seoKeywords', 'label' => 'سئو: کلمات کلیدی (فارسی/انگلیسی، با ویرگول)', 'type' => 'text'),

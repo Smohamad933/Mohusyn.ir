@@ -66,6 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         foreach ($schema['fields'] as $field) {
             $key = $field['key'];
+            if ($field['type'] === 'checkbox') {
+                $item[$key] = !empty($_POST['f_' . $key]);
+                continue;
+            }
             $item[$key] = isset($_POST['f_' . $key]) ? trim((string) $_POST['f_' . $key]) : '';
         }
 
@@ -266,12 +270,20 @@ if ($action === 'edit') {
           if (is_array($val)) { $val = bi($val, 'en'); } /* legacy bilingual data */
           ?>
         <div class="field-row">
+          <?php if ($type !== 'checkbox'): ?>
           <label class="field-label"><?php echo e($field['label']); ?> <span class="en-hint">(به انگلیسی)</span></label>
+          <?php endif; ?>
           <?php if (isset($field['hint'])): ?>
             <p class="hint"><?php echo e($field['hint']); ?></p>
           <?php endif; ?>
 
-          <?php if ($type === 'textarea'): ?>
+          <?php if ($type === 'checkbox'): ?>
+            <label class="switch">
+              <input type="checkbox" name="f_<?php echo e($key); ?>" <?php echo ($isNew || !empty($val)) ? 'checked' : ''; ?>>
+              <span><?php echo e($field['label']); ?></span>
+            </label>
+
+          <?php elseif ($type === 'textarea'): ?>
             <textarea dir="ltr" rows="4" name="f_<?php echo e($key); ?>"><?php echo e($val); ?></textarea>
 
           <?php elseif ($type === 'date'): ?>

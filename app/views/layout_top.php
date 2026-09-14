@@ -133,7 +133,7 @@ try { if (localStorage.getItem('mohusyn-theme') === 'dark') document.documentEle
     <div class="left-group-all">
       <div class="time-box">
         <span class="date-text">
-          <span data-clock-weekday>—</span><br>
+          <span data-clock-weekday>—</span><span class="date-sep">, </span>
           <span data-clock-date>—</span>
         </span>
         <div class="time-divider"></div>

@@ -83,16 +83,19 @@ admin_flash();
           if (is_array($subtitle)) { $subtitle = bi($subtitle, 'en'); } ?>
         <div class="field-row">
           <label class="field-label">عنوان صفحه <span class="en-hint">(به انگلیسی)</span></label>
+          <p class="hint">تیتر بزرگ بالای صفحه و عنوان تب مرورگر.</p>
           <input type="text" dir="ltr" name="pg_<?php echo e($pageKey); ?>_title" value="<?php echo e($title); ?>">
         </div>
         <div class="field-row">
           <label class="field-label">زیرعنوان <span class="en-hint">(به انگلیسی)</span></label>
+          <p class="hint">یک خط توضیح زیر تیتر؛ خالی = حذف.</p>
           <input type="text" dir="ltr" name="pg_<?php echo e($pageKey); ?>_subtitle" value="<?php echo e($subtitle); ?>">
         </div>
       <?php endif; ?>
 
       <div class="field-row">
         <label class="field-label">بخش‌های صفحه</label>
+        <p class="hint">هر بخش را خاموش کنید تا از این صفحه حذف شود؛ محتوای آن پاک نمی‌شود.</p>
         <div class="toggles-grid">
           <?php foreach ($def['sections'] as $sectionKey => $sectionLabel):
               $checked = !empty($pageData[$sectionKey]); ?>

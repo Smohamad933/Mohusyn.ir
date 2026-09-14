@@ -14,6 +14,7 @@ require __DIR__ . '/config.php';
 require __DIR__ . '/app/helpers.php';
 require __DIR__ . '/app/i18n.php';
 require __DIR__ . '/app/seo.php';
+require __DIR__ . '/app/richtext.php';
 
 $locale = 'en'; // the public site is English-only
 

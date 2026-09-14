@@ -7,6 +7,7 @@
 require dirname(__DIR__) . '/config.php';
 require dirname(__DIR__) . '/app/helpers.php';
 require dirname(__DIR__) . '/app/i18n.php';
+require dirname(__DIR__) . '/app/richtext.php';
 
 ensure_session();
 
@@ -18,22 +19,23 @@ function admin_schemas()
 {
     return array(
         'projects' => array(
-            'desc' => 'نمونه‌کارهای گرید صفحهٔ اصلی',
+            'desc' => 'نمونه‌کارها (صفحهٔ اصلی و Portfolio)',
             'label' => 'پروژه‌ها',
             'icon' => '▦',
             'idPrefix' => 'prj',
             'titleField' => 'title',
             'fields' => array(
-                array('key' => 'title', 'label' => 'عنوان پروژه', 'type' => 'text'),
-                array('key' => 'category', 'label' => 'دسته‌بندی (مثل WEB یا BRANDING)', 'type' => 'text'),
+                array('key' => 'title', 'label' => 'عنوان پروژه', 'type' => 'text', 'hint' => 'همان‌طور که روی کارت و بالای صفحهٔ کیس‌استادی دیده می‌شود؛ کوتاه و انگلیسی.'),
+                array('key' => 'category', 'label' => 'دسته‌بندی', 'type' => 'text', 'hint' => 'یک کلمهٔ کوتاه مثل WEB، BRANDING یا MOTION. فیلترهای صفحهٔ Portfolio از همین ساخته می‌شوند؛ املای یکسان استفاده کنید.'),
                 array('key' => 'image', 'label' => 'کاور پروژه', 'type' => 'image', 'hint' => 'نسبت ۵:۴ (مثلاً ۱۲۵۰×۱۰۰۰). در سایت به‌صورت خودکار سیاه‌وسفید نمایش داده می‌شود.'),
                 array('key' => 'slug', 'label' => 'آدرس صفحهٔ کیس‌استادی', 'type' => 'text', 'hint' => 'مثلاً: negahmedia → سایت می‌شود /work/negahmedia — خالی بگذارید تا از عنوان ساخته شود.'),
-                array('key' => 'body', 'label' => 'متن کیس‌استادی', 'type' => 'textarea'),
-                array('key' => 'link', 'label' => 'لینک خارجی پروژه', 'type' => 'url'),
-                array('key' => 'showOnHome', 'label' => 'نمایش در صفحهٔ اصلی', 'type' => 'checkbox', 'hint' => 'اگر خاموش باشد، این پروژه فقط در صفحهٔ Portfolio (/work/) دیده می‌شود.'),
+                array('key' => 'body', 'label' => 'متن کیس‌استادی', 'type' => 'richtext', 'hint' => 'داستان پروژه: مسئله، راه‌حل، نتیجه. از تیتر H2 برای بخش‌ها، لیست برای ویژگی‌ها و لینک برای آدرس‌ها استفاده کنید — با همان فونت و فاصلهٔ سایت رندر می‌شود.'),
+                array('key' => 'link', 'label' => 'لینک خارجی پروژه', 'type' => 'url', 'hint' => 'آدرس سایت زندهٔ پروژه؛ دکمهٔ «Visit live» را می‌سازد. خالی = بدون دکمه.'),
+                array('key' => 'showOnHome', 'label' => 'نمایش در صفحهٔ اصلی', 'type' => 'checkbox', 'hint' => 'روشن = در گرید صفحهٔ اصلی هم دیده می‌شود.'),
+                array('key' => 'showOnPortfolio', 'label' => 'نمایش در صفحهٔ Portfolio', 'type' => 'checkbox', 'hint' => 'روشن = در آرشیو /work/ دیده می‌شود. می‌توانید هر دو، یکی، یا هیچ‌کدام را روشن کنید (صفحهٔ کیس‌استادی همیشه با آدرس مستقیم باز می‌شود).'),
                 array('key' => 'seoTitle', 'label' => 'سئو: عنوان (Title)', 'type' => 'text', 'hint' => 'خالی = خودکار از عنوان و دسته. حداکثر ۷۰ کاراکتر.'),
                 array('key' => 'seoDescription', 'label' => 'سئو: توضیح (Description)', 'type' => 'text', 'hint' => '۱۲۰ تا ۱۶۰ کاراکتر؛ خالی = از متن کیس‌استادی.'),
-                array('key' => 'seoKeywords', 'label' => 'سئو: کلمات کلیدی (فارسی/انگلیسی، با ویرگول)', 'type' => 'text'),
+                array('key' => 'seoKeywords', 'label' => 'سئو: کلمات کلیدی (فارسی/انگلیسی، با ویرگول)', 'type' => 'text', 'hint' => 'مثلاً: طراحی سایت ارکستر, concert website, PHP CMS'),
             ),
         ),
         'experiences' => array(
@@ -43,10 +45,10 @@ function admin_schemas()
             'idPrefix' => 'exp',
             'titleField' => 'role',
             'fields' => array(
-                array('key' => 'role', 'label' => 'عنوان نقش', 'type' => 'text'),
-                array('key' => 'company', 'label' => 'شرکت / مجموعه', 'type' => 'text'),
-                array('key' => 'description', 'label' => 'توضیح', 'type' => 'textarea'),
-                array('key' => 'link', 'label' => 'لینک', 'type' => 'url'),
+                array('key' => 'role', 'label' => 'عنوان نقش', 'type' => 'text', 'hint' => 'مثلاً Lead Designer یا Founder — تیتر هر ردیف در لیست شماره‌دار تجربه‌ها.'),
+                array('key' => 'company', 'label' => 'شرکت / مجموعه', 'type' => 'text', 'hint' => 'به‌صورت برچسب کوچک کنار عنوان نقش نشان داده می‌شود.'),
+                array('key' => 'description', 'label' => 'توضیح', 'type' => 'textarea', 'hint' => 'یک تا دو جمله؛ چه کردید و چه نتیجه‌ای داشت.'),
+                array('key' => 'link', 'label' => 'لینک', 'type' => 'url', 'hint' => 'اختیاری — دکمهٔ «Visit» را می‌سازد.'),
             ),
         ),
         'services' => array(
@@ -56,8 +58,8 @@ function admin_schemas()
             'idPrefix' => 'srv',
             'titleField' => 'title',
             'fields' => array(
-                array('key' => 'title', 'label' => 'عنوان خدمت', 'type' => 'text'),
-                array('key' => 'description', 'label' => 'توضیح', 'type' => 'textarea'),
+                array('key' => 'title', 'label' => 'عنوان خدمت', 'type' => 'text', 'hint' => 'مثلاً Web Design یا Motion Graphics — در بخش «Capabilities» صفحهٔ اصلی.'),
+                array('key' => 'description', 'label' => 'توضیح', 'type' => 'textarea', 'hint' => 'یک جملهٔ کوتاه دربارهٔ این خدمت.'),
             ),
         ),
         'skills' => array(
@@ -67,7 +69,7 @@ function admin_schemas()
             'idPrefix' => 'skl',
             'titleField' => 'label',
             'fields' => array(
-                array('key' => 'label', 'label' => 'نام مهارت', 'type' => 'text'),
+                array('key' => 'label', 'label' => 'نام مهارت', 'type' => 'text', 'hint' => 'یک برچسب کوتاه مثل Figma یا After Effects؛ در نوار متحرک مهارت‌ها می‌چرخد.'),
             ),
         ),
         'collaborators' => array(
@@ -77,9 +79,9 @@ function admin_schemas()
             'idPrefix' => 'col',
             'titleField' => 'name',
             'fields' => array(
-                array('key' => 'name', 'label' => 'نام همکار', 'type' => 'text'),
-                array('key' => 'logo', 'label' => 'لوگو / تصویر', 'type' => 'image'),
-                array('key' => 'link', 'label' => 'لینک', 'type' => 'url'),
+                array('key' => 'name', 'label' => 'نام همکار', 'type' => 'text', 'hint' => 'نام برند یا کارفرما؛ در ردیف «Collaborators» به‌صورت متن نمایش داده می‌شود.'),
+                array('key' => 'logo', 'label' => 'لوگو / تصویر', 'type' => 'image', 'hint' => 'اختیاری.'),
+                array('key' => 'link', 'label' => 'لینک', 'type' => 'url', 'hint' => 'اختیاری — نام را کلیک‌پذیر می‌کند.'),
             ),
         ),
         'posts' => array(
@@ -89,12 +91,12 @@ function admin_schemas()
             'idPrefix' => 'post',
             'titleField' => 'title',
             'fields' => array(
-                array('key' => 'title', 'label' => 'عنوان نوشته', 'type' => 'text'),
+                array('key' => 'title', 'label' => 'عنوان نوشته', 'type' => 'text', 'hint' => 'تیتر مطلب؛ آدرس (نامک) از همین ساخته می‌شود.'),
                 array('key' => 'slug', 'label' => 'نامک (آدرس انگلیسی)', 'type' => 'text', 'hint' => 'خالی بگذارید تا از عنوان ساخته شود.'),
-                array('key' => 'createdAt', 'label' => 'تاریخ انتشار', 'type' => 'date'),
-                array('key' => 'cover', 'label' => 'تصویر شاخص', 'type' => 'image'),
-                array('key' => 'excerpt', 'label' => 'خلاصه', 'type' => 'textarea'),
-                array('key' => 'body', 'label' => 'متن کامل', 'type' => 'textarea'),
+                array('key' => 'createdAt', 'label' => 'تاریخ انتشار', 'type' => 'date', 'hint' => 'برای مرتب‌سازی و نمایش زیر تیتر.'),
+                array('key' => 'cover', 'label' => 'تصویر شاخص', 'type' => 'image', 'hint' => 'نسبت ۴:۳ پیشنهاد می‌شود.'),
+                array('key' => 'excerpt', 'label' => 'خلاصه', 'type' => 'textarea', 'hint' => 'یک تا دو جمله برای لیست بلاگ و توضیح سئو.'),
+                array('key' => 'body', 'label' => 'متن کامل', 'type' => 'richtext', 'hint' => 'متن اصلی مطلب با تیتر، لیست، لینک و تصویر.'),
                 array('key' => 'seoTitle', 'label' => 'سئو: عنوان (Title)', 'type' => 'text', 'hint' => 'خالی = عنوان نوشته.'),
                 array('key' => 'seoDescription', 'label' => 'سئو: توضیح (Description)', 'type' => 'text', 'hint' => 'خالی = خلاصه.'),
                 array('key' => 'seoKeywords', 'label' => 'سئو: کلمات کلیدی (با ویرگول)', 'type' => 'text'),
@@ -132,6 +134,7 @@ function admin_header($active, $pageTitle)
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo e(asset('/admin/assets/admin.css')); ?>">
 </head>
 <body class="admin-body">
@@ -342,6 +345,7 @@ function admin_footer()
   });
 })();
 </script>
+<script src="<?php echo e(asset('/admin/assets/editor.js')); ?>"></script>
 </body>
 </html>
     <?php

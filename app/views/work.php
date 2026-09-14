@@ -1,33 +1,7 @@
 <?php
 /** Case study page — expects: $locale, $project */
 
-/** Tiny markdown-ish renderer: paragraphs, ## headings, - lists. */
-function render_case_body($body)
-{
-    $lines = preg_split('/\n/', (string) $body);
-    $inList = false;
-    foreach ($lines as $line) {
-        $line = rtrim($line);
-        $trimmed = trim($line);
-
-        if ($trimmed === '') {
-            if ($inList) { echo '</ul>'; $inList = false; }
-            continue;
-        }
-
-        if (strpos($trimmed, '## ') === 0) {
-            if ($inList) { echo '</ul>'; $inList = false; }
-            echo '<h2 class="case-heading">' . e(substr($trimmed, 3)) . '</h2>';
-        } elseif (strpos($trimmed, '- ') === 0) {
-            if (!$inList) { echo '<ul class="case-list">'; $inList = true; }
-            echo '<li>' . e(substr($trimmed, 2)) . '</li>';
-        } else {
-            if ($inList) { echo '</ul>'; $inList = false; }
-            echo '<p>' . e($trimmed) . '</p>';
-        }
-    }
-    if ($inList) { echo '</ul>'; }
-}
+/* body: rich HTML from the admin editor (legacy plain text is converted automatically) */
 ?>
 <article class="case-study">
   <div class="case-container">
@@ -49,8 +23,8 @@ function render_case_body($body)
       </div>
     <?php endif; ?>
 
-    <div class="case-body">
-      <?php render_case_body(isset($project['body']) ? $project['body'] : ''); ?>
+    <div class="case-body rich">
+      <?php echo rich_render(isset($project['body']) ? $project['body'] : ''); ?>
     </div>
   </div>
 

@@ -9,22 +9,22 @@ require_auth();
 
 /* Field definitions: [key, label, kind] kind = text | textarea | url | image */
 $basicFields = array(
-    array('brand', 'نام برند', 'text'),
-    array('tagline', 'شعار کوتاه (تگ‌لاین)', 'text'),
-    array('shortName', 'نام نمایشی کوتاه', 'text'),
-    array('fullName', 'نام کامل', 'text'),
-    array('bio', 'متن معرفی (بیو)', 'textarea'),
-    array('availability', 'متن وضعیت همکاری', 'text'),
-    array('cta', 'متن دکمهٔ اصلی', 'text'),
+    array('brand', 'نام برند', 'text', 'در نوار بالای سایت، تب مرورگر و فوتر.'),
+    array('tagline', 'شعار کوتاه (تگ‌لاین)', 'text', 'یک جملهٔ کوتاه زیر نام؛ در توضیح سئو هم استفاده می‌شود.'),
+    array('shortName', 'نام نمایشی کوتاه', 'text', 'مثلاً MOHUSYN — در نوار بالا و امضاها.'),
+    array('fullName', 'نام کامل', 'text', 'در صفحهٔ «دربارهٔ من» و متادیتای سئو.'),
+    array('bio', 'متن معرفی (بیو)', 'textarea', 'دو تا چهار جمله؛ روی هرو صفحهٔ اصلی و صفحهٔ دربارهٔ من.'),
+    array('availability', 'متن وضعیت همکاری', 'text', 'برچسب کوچک کنار نقطهٔ سبز در هرو، مثلاً Available for projects.'),
+    array('cta', 'متن دکمهٔ اصلی', 'text', 'دکمهٔ سیاه هرو که به فرم تماس می‌رود؛ مثلاً Start a project.'),
     array('heroImage', 'تصویر هرو (بنر عریض با نسبت 5:2 — چهره در سمت چپ قاب قرار بگیرد؛ متن و گرادیان سمت راست روی آن می‌نشینند)', 'image'),
     array('profileImage', 'تصویر پروفایل (فقط برای هدر صفحهٔ اصلی وقتی «تصویر هرو» خالی است)', 'image'),
     array('aboutImage', 'تصویر صفحهٔ «دربارهٔ من» (مربعی؛ جدا از هدر صفحهٔ اصلی)', 'image'),
-    array('workSiteUrl', 'آدرس سایت کاری', 'url'),
-    array('workSiteLabel', 'متن لینک سایت کاری', 'text'),
-    array('contactEmail', 'ایمیل تماس', 'text'),
-    array('instagram', 'اینستاگرام', 'url'),
-    array('linkedin', 'لینکدین', 'url'),
-    array('github', 'گیت‌هاب', 'url'),
+    array('workSiteUrl', 'آدرس سایت کاری', 'url', 'لینک دکمهٔ دوم هرو و صفحهٔ دربارهٔ من؛ خالی = دکمه حذف می‌شود.'),
+    array('workSiteLabel', 'متن لینک سایت کاری', 'text', 'متن روی همان دکمه، مثلاً Studio site.'),
+    array('contactEmail', 'ایمیل تماس', 'text', 'مقصد پیام‌های فرم تماس (کپی آن همیشه در «پیام‌ها»ی پنل می‌ماند). روی سایت نمایش داده نمی‌شود.'),
+    array('instagram', 'اینستاگرام', 'url', 'آدرس کامل با https — در فوتر؛ خالی = پنهان.'),
+    array('linkedin', 'لینکدین', 'url', 'آدرس کامل با https — در فوتر؛ خالی = پنهان.'),
+    array('github', 'گیت‌هاب', 'url', 'آدرس کامل با https — در فوتر؛ خالی = پنهان.'),
 );
 
 /* Availability card fields: [key, label] */
@@ -162,6 +162,7 @@ admin_flash();
       ?>
     <div class="field-row">
       <label class="field-label"><?php echo e($label); ?> <span class="en-hint">(به انگلیسی)</span></label>
+      <?php if (!empty($def[3])): ?><p class="hint"><?php echo e($def[3]); ?></p><?php endif; ?>
 
       <?php if ($kind === 'textarea'): ?>
         <textarea dir="ltr" rows="3" name="s_<?php echo e($key); ?>"><?php echo e($val); ?></textarea>
@@ -214,6 +215,7 @@ admin_flash();
 
   <div class="tab-panel" id="tab-texts" hidden>
   <h2 class="form-section-title">کارت «وضعیت همکاری» (Availability)</h2>
+  <p class="hint">کارت انتهای صفحهٔ اصلی که ظرفیت پذیرش پروژه را نشان می‌دهد؛ دکمهٔ آن به فرم تماس می‌رود. هر فیلد خالی باشد، مقدار پیش‌فرض انگلیسی نمایش داده می‌شود.</p>
   <?php foreach ($availFields as $def):
       $akey = $def[0]; ?>
     <div class="field-row">
@@ -224,14 +226,16 @@ admin_flash();
   <?php endforeach; ?>
 
   <h2 class="form-section-title">پورتفولیو (صفحهٔ /work/)</h2>
-  <p class="hint">همهٔ نمونه‌کارها در صفحهٔ «Portfolio» با فیلتر دسته‌بندی نمایش داده می‌شوند؛ صفحهٔ اصلی فقط تعداد محدودی را نشان می‌دهد و دکمهٔ «View all» دارد.</p>
+  <p class="hint">این‌که هر پروژه در صفحهٔ اصلی، صفحهٔ Portfolio یا هر دو دیده شود، از داخل خود پروژه (بخش نمونه‌کارها → دو تیک «نمایش در صفحهٔ اصلی» و «نمایش در صفحهٔ Portfolio») تعیین می‌شود.</p>
   <div class="bi-grid">
     <div class="field-row">
       <label class="field-label">عنوان صفحهٔ پورتفولیو <span class="en-hint">(به انگلیسی)</span></label>
+      <p class="hint">تیتر بزرگ بالای /work/.</p>
       <input type="text" dir="ltr" name="s_portfolioTitle" value="<?php echo e(setting('portfolioTitle', 'Selected Work')); ?>">
     </div>
     <div class="field-row">
       <label class="field-label">تعداد نمونه‌کار در صفحهٔ اصلی</label>
+      <p class="hint">حداکثر تعداد از پروژه‌هایی که «نمایش در صفحهٔ اصلی» آن‌ها روشن است (به ترتیب پنل).</p>
       <input type="number" dir="ltr" min="2" max="40" name="s_homeProjectsLimit" value="<?php echo e((int) setting('homeProjectsLimit', 6)); ?>">
     </div>
   </div>
@@ -247,6 +251,7 @@ admin_flash();
   </div>
 
   <h2 class="form-section-title">تیتر بخش‌های صفحهٔ نخست</h2>
+  <p class="hint">«تیتر کوچک» همان برچسب شماره‌دار بالای هر بخش است، «تیتر» عنوان بزرگ با فونت Doto و «زیرتیتر» یک خط توضیح زیر آن. خالی = پیش‌فرض.</p>
 
   <?php foreach ($sectionFields as $def):
       $key = $def[0];

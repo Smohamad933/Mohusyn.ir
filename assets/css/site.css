@@ -848,6 +848,54 @@ html.dark .work-list-numbered .work-item::before { color: var(--accent); }
   line-height: 1.45;
 }
 
+/* =============================================== RICH TEXT (case studies, posts) */
+.rich { max-width: 72ch; }
+.rich > * + * { margin-top: 16px; }
+.rich p, .rich li, .rich blockquote, .rich td, .rich th {
+  font-size: clamp(13.5px, 1.35vw, 15.5px);
+  color: var(--ink-2);
+  line-height: 1.95;
+  font-weight: var(--fw-medium);
+}
+.rich h2, .rich h3, .rich h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  margin-top: 38px;
+  margin-bottom: 2px;
+}
+.rich h2 { font-size: clamp(19px, 2.2vw, 25px); font-weight: var(--fw-black); position: relative; padding-top: 18px; }
+.rich h2::before { content: ""; position: absolute; top: 0; left: 0; width: 34px; height: 2px; background: var(--accent); }
+.rich h3 { font-size: clamp(16px, 1.7vw, 19px); font-weight: var(--fw-bold); margin-top: 28px; }
+.rich h4 { font-size: clamp(14px, 1.4vw, 16px); font-weight: var(--fw-bold); margin-top: 22px; }
+.rich > h2:first-child, .rich > h3:first-child { margin-top: 0; }
+.rich strong, .rich b { color: var(--ink); font-weight: var(--fw-bold); }
+.rich a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 2px; transition: color 0.15s ease; }
+.rich a:hover { color: var(--accent-fg); background: var(--accent); text-decoration: none; }
+.rich ul, .rich ol { padding-inline-start: 0; list-style: none; display: grid; gap: 8px; }
+.rich li { position: relative; padding-inline-start: 26px; }
+.rich ul li::before { content: ""; position: absolute; left: 4px; top: 0.85em; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); transform: rotate(45deg); }
+.rich ol { counter-reset: rich; }
+.rich ol li::before { counter-increment: rich; content: counter(rich, decimal-leading-zero); position: absolute; left: 0; top: 0.35em; font-family: var(--font-display); font-size: 11px; font-weight: var(--fw-bold); color: var(--ink-4); }
+.rich blockquote {
+  border-inline-start: 3px solid var(--accent); padding: 8px 20px; margin: 0; background: var(--card); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--ink); font-style: italic;
+}
+.rich hr { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
+.rich code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88em; background: var(--hover-bg); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--ink); }
+.rich pre { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px 18px; overflow-x: auto; }
+.rich pre code { border: none; background: none; padding: 0; }
+.rich img { max-width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--line); display: block; }
+.rich figure { margin: 26px 0; }
+.rich figcaption { font-size: 12px; color: var(--ink-4); margin-top: 8px; letter-spacing: 0.3px; }
+.rich figcaption:empty { display: none; }
+.rich mark { background: var(--accent); color: var(--accent-fg); padding: 0 4px; border-radius: 3px; }
+.rich table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.rich th, .rich td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; }
+.rich th { color: var(--ink); font-weight: var(--fw-bold); }
+.rich u { text-decoration-color: var(--ink-4); text-underline-offset: 3px; }
+
 /* =============================================== CASE STUDY PAGE */
 .case-study { padding-bottom: 30px; }
 
@@ -898,7 +946,7 @@ html.dark .work-list-numbered .work-item::before { color: var(--accent); }
 }
 
 .case-body { padding-bottom: 20px; }
-.case-body p {
+.case-body:not(.rich) p {
   font-size: clamp(13px, 1.35vw, 15.5px);
   color: var(--ink-2);
   line-height: 1.9;
@@ -1564,3 +1612,10 @@ html.builder-frame body::before {
 }
 body.bf-dragging .bf-block { pointer-events: none; }
 html.builder-frame .blocks-area:empty { display: none; }
+
+/* sub-header: weekday + date on one line on desktop, stacked on small screens */
+.date-text { white-space: nowrap; }
+@media (max-width: 600px) {
+  .date-text .date-sep { display: none; }
+  .date-text [data-clock-date] { display: block; }
+}

@@ -70,6 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $item[$key] = !empty($_POST['f_' . $key]);
                 continue;
             }
+            if ($field['type'] === 'richtext') {
+                $item[$key] = rich_sanitize(isset($_POST['f_' . $key]) ? (string) $_POST['f_' . $key] : '');
+                continue;
+            }
             $item[$key] = isset($_POST['f_' . $key]) ? trim((string) $_POST['f_' . $key]) : '';
         }
 
@@ -283,6 +287,9 @@ if ($action === 'edit') {
               <input type="checkbox" name="f_<?php echo e($key); ?>" <?php echo ($isNew || !empty($val)) ? 'checked' : ''; ?>>
               <span><?php echo e($field['label']); ?></span>
             </label>
+
+          <?php elseif ($type === 'richtext'): ?>
+            <textarea dir="ltr" rows="14" name="f_<?php echo e($key); ?>" data-richtext><?php echo e(rich_is_html($val) ? $val : rich_from_plain($val)); ?></textarea>
 
           <?php elseif ($type === 'textarea'): ?>
             <textarea dir="ltr" rows="4" name="f_<?php echo e($key); ?>"><?php echo e($val); ?></textarea>

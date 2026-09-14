@@ -1,6 +1,9 @@
 <?php
 /** Portfolio archive — every published project, filterable by category. Expects: $locale */
-$projects = published_items('projects');
+$projects = array();
+foreach (published_items('projects') as $pp) {
+    if (!array_key_exists('showOnPortfolio', $pp) || !empty($pp['showOnPortfolio'])) { $projects[] = $pp; }
+}
 $categories = array();
 foreach ($projects as $p) {
     $cat = trim((string) bi(isset($p['category']) ? $p['category'] : '', $locale));

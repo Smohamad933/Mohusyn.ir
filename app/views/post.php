@@ -16,17 +16,8 @@
       </div>
     <?php endif; ?>
 
-    <div class="post-body">
-      <?php
-      $body = bi($post['body'], $locale);
-      $paragraphs = preg_split('/\n\s*\n/', $body);
-      foreach ($paragraphs as $paragraph) {
-          $paragraph = trim($paragraph);
-          if ($paragraph !== '') {
-              echo '<p>' . nl2br(e($paragraph)) . '</p>';
-          }
-      }
-      ?>
+    <div class="post-body rich">
+      <?php echo rich_render(bi($post['body'], $locale)); ?>
     </div>
   </div>
 </article>

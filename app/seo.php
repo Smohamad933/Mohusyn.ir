@@ -180,7 +180,7 @@ function seo_build($view, $locale, $post = null, $project = null)
         $ptitle = bi($project['title'], $locale);
         $pcat = bi(isset($project['category']) ? $project['category'] : '', $locale);
         $title = (!empty($project['seoTitle']) ? $project['seoTitle'] : $ptitle . ' — ' . $pcat . ' case study') . $suffix;
-        $bodyDesc = isset($project['body']) ? seo_trim($project['body']) : '';
+        $bodyDesc = isset($project['body']) ? (function_exists('rich_text') ? rich_text($project['body']) : seo_trim($project['body'])) : '';
         $desc = !empty($project['seoDescription']) ? $project['seoDescription'] : ($bodyDesc !== '' ? $bodyDesc : $ptitle . ' — ' . $pcat . ' project by ' . $fullName . '.');
         $kw = seo_keywords(isset($project['seoKeywords']) ? $project['seoKeywords'] : '', $ptitle, $pcat, $baseKw);
         if (!empty($project['image'])) {
@@ -205,7 +205,7 @@ function seo_build($view, $locale, $post = null, $project = null)
         $title = (!empty($post['seoTitle']) ? $post['seoTitle'] : $ptitle) . $suffix;
         $desc = !empty($post['seoDescription']) ? $post['seoDescription'] : seo_trim(bi(isset($post['excerpt']) ? $post['excerpt'] : '', $locale));
         if ($desc === '') {
-            $desc = seo_trim(bi(isset($post['body']) ? $post['body'] : '', $locale));
+            $desc = function_exists('rich_text') ? rich_text(bi(isset($post['body']) ? $post['body'] : '', $locale)) : seo_trim(bi(isset($post['body']) ? $post['body'] : '', $locale));
         }
         $kw = seo_keywords(isset($post['seoKeywords']) ? $post['seoKeywords'] : '', $baseKw);
         if (!empty($post['cover'])) {

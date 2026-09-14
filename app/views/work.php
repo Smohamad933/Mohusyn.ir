@@ -23,9 +23,45 @@
       </div>
     <?php endif; ?>
 
-    <div class="case-body rich">
-      <?php echo rich_render(isset($project['body']) ? $project['body'] : ''); ?>
-    </div>
+    <?php $bodyHtml = rich_render(isset($project['body']) ? $project['body'] : ''); ?>
+    <section class="case-layout">
+      <aside class="case-meta">
+        <div class="case-meta-card">
+          <span class="mono case-meta-kicker">Project details</span>
+          <dl class="case-meta-list">
+            <div><dt>Project</dt><dd><?php echo e(bi($project['title'], $locale)); ?></dd></div>
+            <div><dt>Category</dt><dd><?php echo e(bi($project['category'], $locale)); ?></dd></div>
+            <?php if (!empty($project['createdAt'])): ?><div><dt>Year</dt><dd><?php echo e(substr($project['createdAt'], 0, 4)); ?></dd></div><?php endif; ?>
+            <?php if (!empty($project['link'])): ?>
+              <div><dt>Website</dt><dd><a href="<?php echo e($project['link']); ?>" target="_blank" rel="noopener"><?php echo e(preg_replace('#^https?://(www\.)?|/$#', '', $project['link'])); ?> ↗</a></dd></div>
+            <?php endif; ?>
+          </dl>
+          <a class="work-action-btn case-meta-cta" href="/#contact">Start a similar project →</a>
+        </div>
+      </aside>
+
+      <div class="case-panel">
+        <div class="case-panel-head">
+          <span class="mono case-panel-kicker">Case study</span>
+          <span class="case-panel-dots"><i></i><i></i><i></i></span>
+        </div>
+        <?php if (trim($bodyHtml) !== ''): ?>
+          <div class="case-body rich">
+            <?php echo $bodyHtml; ?>
+          </div>
+        <?php else: ?>
+          <div class="case-body case-empty">
+            <p>Full write-up coming soon.</p>
+          </div>
+        <?php endif; ?>
+        <div class="case-panel-foot">
+          <span class="mono">Designed, built and shipped by <?php echo e(setting('shortName', 'MOHUSYN')); ?></span>
+          <?php if (!empty($project['link'])): ?>
+            <a class="case-panel-link" href="<?php echo e($project['link']); ?>" target="_blank" rel="noopener">Visit live ↗</a>
+          <?php endif; ?>
+        </div>
+      </div>
+    </section>
   </div>
 
   <?php

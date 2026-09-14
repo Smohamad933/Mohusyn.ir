@@ -16,8 +16,14 @@
       </div>
     <?php endif; ?>
 
-    <div class="post-body rich">
-      <?php echo rich_render(bi($post['body'], $locale)); ?>
+    <div class="case-panel post-panel">
+      <div class="case-panel-head">
+        <span class="mono case-panel-kicker">Article</span>
+        <span class="case-panel-dots"><i></i><i></i><i></i></span>
+      </div>
+      <div class="post-body rich">
+        <?php echo rich_render(bi($post['body'], $locale)); ?>
+      </div>
     </div>
   </div>
 </article>

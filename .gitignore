@@ -1,0 +1,8 @@
+# Uploads are managed from the admin panel
+uploads/*
+!uploads/.gitkeep
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+*.swp

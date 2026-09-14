@@ -1,0 +1,42 @@
+[
+  {
+    "id": "prj-negahmedia",
+    "published": true,
+    "image": "/assets/images/card-branding.jpg",
+    "link": "https://www.negahm.ir/",
+    "title": "Negahmedia-co",
+    "category": "BRANDING",
+    "slug": "negahmedia",
+    "body": "## The idea\n\nNegahmedia needed more than a logo — it needed a visual language that could carry a growing studio across print, web and motion.\n\nThe goal was a brand system that feels confident without shouting, and stays flexible enough for very different projects.\n\n## Designing a system, not just a mark\n\nInstead of starting with the logo, we started with the rules: spacing, rhythm, contrast and tone of voice.\n\nThe identity was built around a small set of decisions — a restrained palette, strong typographic hierarchy and a repeatable layout grammar.\n\nEvery asset, from business cards to social templates, follows the same system.\n\n## What shipped\n\n- Logo and icon system\n- Typography scale and color tokens\n- Stationery and print templates\n- Social media kit\n- Studio coordinator workflows for handing assets to clients\n\n## What I learned\n\nA brand is not a folder of files. It is a set of decisions that survive real use.\n\nThe strongest part of this project was watching the system hold together when new people started making things with it."
+  },
+  {
+    "id": "prj-ofog",
+    "published": true,
+    "image": "/assets/images/card-web.jpg",
+    "link": "https://www.negahm.ir/",
+    "title": "Ofog Danesh Soraya",
+    "category": "WEB",
+    "slug": "ofog-danesh-soraya",
+    "body": "## The idea\n\nOfog Danesh Soraya needed a web presence that could explain educational services clearly — and load fast on any connection.\n\nThe brief was simple: credible, calm, and easy to navigate.\n\n## Building the site\n\nThe site was designed as a small set of reusable sections: hero, service overviews, contact and a lightweight content structure that non-technical staff can update.\n\nPerformance was treated as a feature: minimal dependencies, optimized images and a clear content hierarchy.\n\n## What shipped\n\n- Responsive design system\n- Editorial layout for news and updates\n- Contact and enrollment flows\n- SEO structure and metadata\n\n## What I learned\n\nEducational websites succeed when they remove friction. Every screen should answer one question quickly — and get out of the way."
+  },
+  {
+    "id": "prj-draft-3",
+    "published": false,
+    "image": "/assets/images/card-branding.jpg",
+    "link": "",
+    "title": "Project Title 3",
+    "category": "DEVELOPMENT",
+    "slug": "",
+    "body": ""
+  },
+  {
+    "id": "prj-draft-4",
+    "published": false,
+    "image": "/assets/images/card-web.jpg",
+    "link": "",
+    "title": "Project Title 4",
+    "category": "DESIGN",
+    "slug": "",
+    "body": ""
+  }
+]

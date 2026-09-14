@@ -1,0 +1,16 @@
+[
+  {
+    "id": "col-ods",
+    "published": true,
+    "name": "Ofog Danesh Soraya",
+    "logo": "/assets/images/card-web.jpg",
+    "link": ""
+  },
+  {
+    "id": "col-negah",
+    "published": true,
+    "name": "Negahmedia",
+    "logo": "/assets/images/card-branding.jpg",
+    "link": "https://www.negahm.ir/"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "id": "post-hello",
+    "slug": "hello-2026",
+    "published": true,
+    "createdAt": "2026-09-13",
+    "cover": "/assets/images/card-branding.jpg",
+    "title": "The new Mohusyn website",
+    "excerpt": "Mohusyn is now faster, cleaner and powered by a built-in content panel.",
+    "body": "This is the first post on the new site.\n\nIn this version, every piece of content — projects, experiences, posts and settings — can be edited from the admin panel.\n\nMore projects and writing coming soon."
+  }
+]

@@ -1,0 +1,18 @@
+[
+  { "id": "skl-1", "published": true, "label": "Videography" },
+  { "id": "skl-2", "published": true, "label": "Video Editing" },
+  { "id": "skl-3", "published": true, "label": "Color Grading" },
+  { "id": "skl-4", "published": true, "label": "HTML · CSS · JS" },
+  { "id": "skl-5", "published": true, "label": "WordPress" },
+  { "id": "skl-6", "published": true, "label": "After Effects" },
+  { "id": "skl-7", "published": true, "label": "Premiere Pro" },
+  { "id": "skl-8", "published": true, "label": "Photoshop" },
+  { "id": "skl-9", "published": true, "label": "Illustrator" },
+  { "id": "skl-10", "published": true, "label": "Adobe Audition" },
+  { "id": "skl-11", "published": true, "label": "Figma" },
+  { "id": "skl-12", "published": true, "label": "Adobe XD" },
+  { "id": "skl-13", "published": true, "label": "Art Direction" },
+  { "id": "skl-14", "published": true, "label": "Music Production" },
+  { "id": "skl-15", "published": true, "label": "Graphic Design" },
+  { "id": "skl-16", "published": true, "label": "UI Design" }
+]

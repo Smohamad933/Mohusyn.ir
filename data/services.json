@@ -1,0 +1,32 @@
+[
+  {
+    "id": "srv-landing",
+    "published": true,
+    "title": "Landing pages",
+    "description": "Focused narrative, conversion-aware layouts, and responsive frontend implementation."
+  },
+  {
+    "id": "srv-uiux",
+    "published": true,
+    "title": "UI/UX Design",
+    "description": "Product-shaped interfaces, user flows, and design systems built for modern web and mobile apps."
+  },
+  {
+    "id": "srv-motion",
+    "published": true,
+    "title": "Motion Graphic Design",
+    "description": "Dynamic animations, kinetic typography, and visual effects that bring brand stories to life."
+  },
+  {
+    "id": "srv-branding",
+    "published": true,
+    "title": "Graphic Design & Branding",
+    "description": "Visual identity systems, typography scales, and promotional assets with a cohesive aesthetic."
+  },
+  {
+    "id": "srv-video",
+    "published": true,
+    "title": "Videography & Editing",
+    "description": "Professional video shooting, post-production editing, color grading, and cinematic storytelling."
+  }
+]

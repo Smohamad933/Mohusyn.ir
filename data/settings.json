@@ -1,0 +1,65 @@
+{
+  "brand": "MOHUSYN",
+  "tagline": "Portfolio IN 2026",
+  "fullName": "Seyyed Mohammad Hossein Sheikholeslami",
+  "shortName": "Mohusyn",
+  "bio": "Filmmaker, editor and UI/motion designer, who builds modern web experiences at the intersection of media, design and coding — currently exploring a career in directing.",
+  "availability": "Open to product collaborations",
+  "cta": "Start a project",
+  "profileImage": "/assets/images/profile.png",
+  "workSiteUrl": "https://www.negahm.ir/",
+  "workSiteLabel": "Work Site",
+  "contactEmail": "hello@mohusyn.ir",
+  "instagram": "https://instagram.com/mohusyn",
+  "linkedin": "",
+  "github": "",
+  "availTitle": "Current Availability",
+  "availPeriod": "Q3 2026",
+  "availSpots": "2 Spots Left",
+  "availCta": "Apply for a Project",
+  "sections": {
+    "collaborators": "Collaborators",
+    "collaboratorsIntro": "Collaborators and product experience across partner brands.",
+    "experienceKicker": "Experience & Projects",
+    "experienceTitle": "Built by MOHUSYN",
+    "experienceSubtitle": "Independent products, built with care.",
+    "servicesKicker": "What I ship",
+    "servicesTitle": "Capabilities & Practice",
+    "servicesSubtitle": "From high-converting landing pages and UI/UX systems to motion design, graphic branding, and professional video production — each craft gets the same precision.",
+    "skillsKicker": "What I do best",
+    "footerTitle": "Let's build something",
+    "footerSubtitle": "If you have a project in mind, I'd love to hear about it."
+  },
+  "pages": {
+    "home": {
+      "showProjects": true,
+      "showCollaborators": true,
+      "showServices": true,
+      "showSkills": true,
+      "showAvailability": true,
+      "showPosts": true
+    },
+    "about": {
+      "title": "About Me",
+      "subtitle": "Filmmaker and designer; somewhere between media, design and code.",
+      "showExperiences": true,
+      "showSkills": true,
+      "showCollaborators": true
+    }
+  },
+  "fonts": {
+    "cssUrl": "",
+    "enFamily": "",
+    "enFile": ""
+  },
+  "tagFonts": {
+    "h1": { "mode": "default", "family": "" },
+    "h2": { "mode": "default", "family": "" },
+    "h3": { "mode": "default", "family": "" },
+    "h4": { "mode": "default", "family": "" },
+    "p": { "mode": "default", "family": "" }
+  },
+  "customCss": "",
+  "showAdminLink": true,
+  "timezone": "Asia/Tehran"
+}

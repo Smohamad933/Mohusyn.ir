@@ -1,0 +1,26 @@
+[
+  {
+    "id": "exp-videographer",
+    "published": true,
+    "link": "https://odsconco.ir/",
+    "role": "Freelance Videographer",
+    "company": "Odsconco.ir",
+    "description": "Freelance Videographer at odsconco, bringing stories to life through the lens, creative editing, and a sharp eye for visual detail."
+  },
+  {
+    "id": "exp-studio",
+    "published": true,
+    "link": "https://www.negahm.ir/",
+    "role": "Studio Coordinator",
+    "company": "Negahm.ir",
+    "description": "As a Studio Coordinator at Negahmedia, manages daily operations, schedules, and team communication to ensure smooth project workflows."
+  },
+  {
+    "id": "exp-motion",
+    "published": true,
+    "link": "",
+    "role": "Motion Graphic Designer",
+    "company": "Mohammad Siavoshi Jewelry",
+    "description": "Motion Graphic Designer at Mohammad Siavoshi Jewelry."
+  }
+]

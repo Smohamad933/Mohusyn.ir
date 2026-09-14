@@ -155,8 +155,13 @@
     if (ev.clientY < 60) window.scrollBy(0, -12); else if (ev.clientY > vh - 60) window.scrollBy(0, 12);
   });
   document.addEventListener("dragleave", function (ev) {
-    if (ev.relatedTarget === null || ev.clientY <= 0 || ev.clientY >= window.innerHeight) { /* left the frame */ }
+    /* pointer left the frame entirely -> hide the drop marker */
+    if (ev.clientX <= 0 || ev.clientY <= 0 || ev.clientX >= window.innerWidth || ev.clientY >= window.innerHeight) {
+      if (placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+      document.body.classList.remove("bf-dragging");
+    }
   });
+  document.addEventListener("mousemove", function () { if (!dragId) document.body.classList.remove("bf-dragging"); });
   document.addEventListener("drop", function (ev) {
     ev.preventDefault();
     var index = placeholderIndex();
@@ -180,6 +185,9 @@
       blocks = Array.isArray(m.blocks) ? m.blocks : [];
       if (m.selectedId !== undefined) selectedId = m.selectedId;
       render();
+    } else if (m.type === "dragend") {
+      dragId = null;
+      clearPlaceholder();
     } else if (m.type === "scrollTo") {
       var el = area.querySelector('[data-bf-id="' + m.id + '"]');
       if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });

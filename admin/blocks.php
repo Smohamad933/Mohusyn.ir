@@ -185,8 +185,7 @@ admin_header('blocks', 'بلوک‌ساز بصری');
   }
   function moveBlock(id, index) {
     var i = find(id); if (i < 0) return;
-    var b = blocks.splice(i, 1)[0];
-    if (i < index) index--;
+    var b = blocks.splice(i, 1)[0]; /* index already excludes the dragged block */
     blocks.splice(Math.max(0, Math.min(index, blocks.length)), 0, b);
     markDirty(); renderAll();
   }
@@ -323,7 +322,10 @@ admin_header('blocks', 'بلوک‌ساز بصری');
       ev.dataTransfer.setData('text/plain', 'new:' + type);
       root.classList.add('is-dragging');
     });
-    it.addEventListener('dragend', function () { root.classList.remove('is-dragging'); });
+    it.addEventListener('dragend', function () {
+      root.classList.remove('is-dragging');
+      if (frameReady) frame.contentWindow.postMessage({ source: 'mohusyn-builder', type: 'dragend' }, window.location.origin);
+    });
     it.addEventListener('click', function () { insertBlock(type); });
   });
 

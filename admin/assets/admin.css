@@ -510,7 +510,6 @@ body.rail-open .tab::after { display: none; }
   .tab::after { display: none; }
   .bi-grid { grid-template-columns: 1fr; }
 }
-}
 
 /* ============================================ dashboard & inbox additions */
 .page-head-actions { display: flex; gap: 8px; }

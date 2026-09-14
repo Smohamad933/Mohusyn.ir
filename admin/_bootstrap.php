@@ -30,6 +30,9 @@ function admin_schemas()
                 array('key' => 'slug', 'label' => 'آدرس صفحهٔ کیس‌استادی', 'type' => 'text', 'hint' => 'مثلاً: negahmedia → سایت می‌شود /work/negahmedia — خالی بگذارید تا از عنوان ساخته شود.'),
                 array('key' => 'body', 'label' => 'متن کیس‌استادی', 'type' => 'textarea'),
                 array('key' => 'link', 'label' => 'لینک خارجی پروژه', 'type' => 'url'),
+                array('key' => 'seoTitle', 'label' => 'سئو: عنوان (Title)', 'type' => 'text', 'hint' => 'خالی = خودکار از عنوان و دسته. حداکثر ۷۰ کاراکتر.'),
+                array('key' => 'seoDescription', 'label' => 'سئو: توضیح (Description)', 'type' => 'text', 'hint' => '۱۲۰ تا ۱۶۰ کاراکتر؛ خالی = از متن کیس‌استادی.'),
+                array('key' => 'seoKeywords', 'label' => 'سئو: کلمات کلیدی (فارسی/انگلیسی، با ویرگول)', 'type' => 'text'),
             ),
         ),
         'experiences' => array(
@@ -91,6 +94,9 @@ function admin_schemas()
                 array('key' => 'cover', 'label' => 'تصویر شاخص', 'type' => 'image'),
                 array('key' => 'excerpt', 'label' => 'خلاصه', 'type' => 'textarea'),
                 array('key' => 'body', 'label' => 'متن کامل', 'type' => 'textarea'),
+                array('key' => 'seoTitle', 'label' => 'سئو: عنوان (Title)', 'type' => 'text', 'hint' => 'خالی = عنوان نوشته.'),
+                array('key' => 'seoDescription', 'label' => 'سئو: توضیح (Description)', 'type' => 'text', 'hint' => 'خالی = خلاصه.'),
+                array('key' => 'seoKeywords', 'label' => 'سئو: کلمات کلیدی (با ویرگول)', 'type' => 'text'),
             ),
         ),
     );
@@ -155,6 +161,9 @@ function admin_header($active, $pageTitle)
       <a href="pages.php" class="<?php echo $active === 'pages' ? 'active' : ''; ?>">▣ بخش‌های صفحات<small>روشن/خاموش‌کردن هر بخش</small></a>
       <a href="settings.php#tab-fonts" class="<?php echo $active === 'fonts' ? 'active' : ''; ?>">Aa فونت‌ها<small>فونت متن‌ها و تیترها</small></a>
       <a href="css.php" class="<?php echo $active === 'css' ? 'active' : ''; ?>">🎨 CSS سفارشی<small>برای کاربران حرفه‌ای</small></a>
+
+      <div class="sidebar-group">دیده‌شدن</div>
+      <a href="seo.php" class="<?php echo $active === 'seo' ? 'active' : ''; ?>">🔎 سئو<small>کلمات کلیدی، گوگل و بینگ</small></a>
 
       <div class="sidebar-group">فایل‌ها</div>
       <a href="media.php" class="<?php echo $active === 'media' ? 'active' : ''; ?>">▤ رسانه‌ها<small>همهٔ تصاویر آپلودشده</small></a>

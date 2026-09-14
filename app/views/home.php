@@ -47,9 +47,14 @@ if ($heroImg !== '' && strpos($heroImg, 'uploads/') === 0) { $heroImg = '/' . $h
 
 <!-- ================================================= PORTFOLIO GRID -->
 <?php if ($showProjects): ?>
+<?php
+$homeLimit = (int) setting('homeProjectsLimit', 6);
+if ($homeLimit <= 0) { $homeLimit = 6; }
+$homeProjects = array_slice($projects, 0, $homeLimit);
+?>
 <section class="portfolio-section">
   <div class="portfolio-grid">
-    <?php foreach ($projects as $project):
+    <?php foreach ($homeProjects as $project):
         $href = !empty($project['slug']) ? '/work/' . $project['slug'] . '/' : (!empty($project['link']) ? $project['link'] : '#');
         $external = empty($project['slug']) && !empty($project['link']);
     ?>
@@ -65,6 +70,11 @@ if ($heroImg !== '' && strpos($heroImg, 'uploads/') === 0) { $heroImg = '/' . $h
       </a>
     <?php endforeach; ?>
   </div>
+  <?php if (count($projects) > count($homeProjects)): ?>
+    <div class="portfolio-more">
+      <a class="portfolio-more-btn" href="/work/">View all <?php echo e(count($projects)); ?> projects <span class="btn-arrow">→</span></a>
+    </div>
+  <?php endif; ?>
 </section>
 <?php endif; ?>
 

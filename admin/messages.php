@@ -71,6 +71,13 @@ admin_flash();
         <span class="msg-date mono"><?php echo e($m['createdAt']); ?></span>
       </div>
       <p class="msg-body" dir="ltr"><?php echo nl2br(e($m['message'])); ?></p>
+      <?php if (!empty($m['attachment']) && is_array($m['attachment'])): $att = $m['attachment']; ?>
+        <a class="msg-attachment" href="<?php echo e($att['url']); ?>" target="_blank" rel="noopener" download>
+          📎 <span dir="ltr"><?php echo e($att['name']); ?></span>
+          <?php if (!empty($att['size'])): ?><small class="mono"><?php echo e(number_format($att['size'] / 1024 / 1024, 1)); ?> MB</small><?php endif; ?>
+          <span class="mono">دانلود فایل ↓</span>
+        </a>
+      <?php endif; ?>
       <div class="msg-actions">
         <a class="btn btn-mini" href="mailto:<?php echo e($m['email']); ?>">↩ پاسخ با ایمیل</a>
         <form method="post" class="inline-form">

@@ -19,9 +19,16 @@ $showCollaborators = page_shows('about', 'showCollaborators') && !empty($collabo
     </div>
 
     <div class="about-layout">
+      <?php
+      $aboutImg = trim((string) setting('aboutImage'));
+      if ($aboutImg === '') { $aboutImg = trim((string) setting('profileImage')); }
+      if ($aboutImg !== '' && strpos($aboutImg, 'uploads/') === 0) { $aboutImg = '/' . $aboutImg; }
+      ?>
+      <?php if ($aboutImg !== ''): ?>
       <div class="about-avatar">
-        <img src="<?php echo e(setting('profileImage')); ?>" alt="<?php echo e(setting_bi('fullName', $locale)); ?>">
+        <img src="<?php echo e($aboutImg); ?>" alt="<?php echo e(setting_bi('fullName', $locale)); ?>">
       </div>
+      <?php endif; ?>
       <div class="about-text">
         <h2 class="about-name"><?php echo e(setting_bi('fullName', $locale)); ?></h2>
         <p class="about-bio"><?php echo e(setting_bi('bio', $locale)); ?></p>

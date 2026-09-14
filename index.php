@@ -3,6 +3,8 @@
  * Mohusyn.ir — Front controller (English-only site)
  * Routes:  /            -> landing
  *          /about/      -> about me
+ *          /work/       -> portfolio archive (all projects)
+ *          /work/slug   -> case study
  *          /blog/       -> blog list
  *          /blog/slug   -> single post
  * Legacy bilingual URLs (/fa/... /en/...) redirect to the plain path.
@@ -11,6 +13,7 @@
 require __DIR__ . '/config.php';
 require __DIR__ . '/app/helpers.php';
 require __DIR__ . '/app/i18n.php';
+require __DIR__ . '/app/seo.php';
 
 $locale = 'en'; // the public site is English-only
 
@@ -59,11 +62,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
                 'createdAt' => date('Y-m-d H:i'),
                 'read' => false,
             );
+            /* optional attachment (uploaded beforehand via contact-upload.php) */
+            $tok = isset($_POST['contact_attachment']) ? preg_replace('/[^a-f0-9]/', '', (string) $_POST['contact_attachment']) : '';
+            if ($tok !== '') {
+                $pending = load_json('attachments.json', array());
+                if (isset($pending[$tok]) && is_array($pending[$tok])) {
+                    $entry['attachment'] = array(
+                        'url' => '/uploads/attachments/' . $pending[$tok]['file'],
+                        'name' => $pending[$tok]['name'],
+                        'size' => isset($pending[$tok]['size']) ? (int) $pending[$tok]['size'] : 0,
+                    );
+                    $pending[$tok]['used'] = true;
+                    save_json('attachments.json', $pending);
+                }
+            }
             array_unshift($messages, $entry);
             save_json('messages.json', array_values($messages));
         }
     }
     header('Location: /contact/?sent=1');
+    exit;
+}
+
+/* sitemap.xml / robots.txt are generated (the physical files don't exist) */
+if (count($segments) === 1 && $segments[0] === 'sitemap.xml') {
+    seo_sitemap();
+    exit;
+}
+if (count($segments) === 1 && $segments[0] === 'robots.txt') {
+    seo_robots();
     exit;
 }
 
@@ -73,6 +100,8 @@ if (count($segments) === 0) {
     $view = 'about';
 } elseif ($segments[0] === 'contact' && count($segments) === 1) {
     $view = 'contact';
+} elseif ($segments[0] === 'work' && count($segments) === 1) {
+    $view = 'portfolio';
 } elseif ($segments[0] === 'work' && count($segments) === 2) {
     $view = 'work';
     $slug = $segments[1];

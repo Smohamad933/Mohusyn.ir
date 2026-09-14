@@ -17,7 +17,8 @@ $basicFields = array(
     array('availability', 'متن وضعیت همکاری', 'text'),
     array('cta', 'متن دکمهٔ اصلی', 'text'),
     array('heroImage', 'تصویر هرو (بنر عریض با نسبت 5:2 — چهره در سمت چپ قاب قرار بگیرد؛ متن و گرادیان سمت راست روی آن می‌نشینند)', 'image'),
-    array('profileImage', 'تصویر پروفایل', 'image'),
+    array('profileImage', 'تصویر پروفایل (فقط برای هدر صفحهٔ اصلی وقتی «تصویر هرو» خالی است)', 'image'),
+    array('aboutImage', 'تصویر صفحهٔ «دربارهٔ من» (مربعی؛ جدا از هدر صفحهٔ اصلی)', 'image'),
     array('workSiteUrl', 'آدرس سایت کاری', 'url'),
     array('workSiteLabel', 'متن لینک سایت کاری', 'text'),
     array('contactEmail', 'ایمیل تماس', 'text'),
@@ -96,6 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* footer admin link visibility */
     $settings['showAdminLink'] = !empty($_POST['s_showAdminLink']);
+    /* portfolio archive + blog menu */
+    $settings['showBlogInMenu'] = !empty($_POST['s_showBlogInMenu']);
+    $settings['portfolioTitle'] = isset($_POST['s_portfolioTitle']) ? trim((string) $_POST['s_portfolioTitle']) : '';
+    $settings['portfolioSubtitle'] = isset($_POST['s_portfolioSubtitle']) ? trim((string) $_POST['s_portfolioSubtitle']) : '';
+    $lim = isset($_POST['s_homeProjectsLimit']) ? (int) $_POST['s_homeProjectsLimit'] : 6;
+    $settings['homeProjectsLimit'] = max(2, min(40, $lim));
 
     save_json('settings.json', $settings);
     header('Location: settings.php?msg=saved');
@@ -173,6 +180,29 @@ admin_flash();
              value="<?php echo e(isset($settings[$akey]) && is_string($settings[$akey]) ? $settings[$akey] : ''); ?>">
     </div>
   <?php endforeach; ?>
+
+  <h2 class="form-section-title">پورتفولیو (صفحهٔ /work/)</h2>
+  <p class="hint">همهٔ نمونه‌کارها در صفحهٔ «Portfolio» با فیلتر دسته‌بندی نمایش داده می‌شوند؛ صفحهٔ اصلی فقط تعداد محدودی را نشان می‌دهد و دکمهٔ «View all» دارد.</p>
+  <div class="bi-grid">
+    <div class="field-row">
+      <label class="field-label">عنوان صفحهٔ پورتفولیو <span class="en-hint">(به انگلیسی)</span></label>
+      <input type="text" dir="ltr" name="s_portfolioTitle" value="<?php echo e(setting('portfolioTitle', 'Selected Work')); ?>">
+    </div>
+    <div class="field-row">
+      <label class="field-label">تعداد نمونه‌کار در صفحهٔ اصلی</label>
+      <input type="number" dir="ltr" min="2" max="40" name="s_homeProjectsLimit" value="<?php echo e((int) setting('homeProjectsLimit', 6)); ?>">
+    </div>
+  </div>
+  <div class="field-row">
+    <label class="field-label">زیرعنوان صفحهٔ پورتفولیو <span class="en-hint">(به انگلیسی)</span></label>
+    <input type="text" dir="ltr" name="s_portfolioSubtitle" value="<?php echo e(setting('portfolioSubtitle', 'Websites, brands and motion — every project, in one place.')); ?>">
+  </div>
+  <div class="field-row">
+    <label class="switch">
+      <input type="checkbox" name="s_showBlogInMenu" <?php echo !empty($settings['showBlogInMenu']) ? 'checked' : ''; ?>>
+      <span>نمایش «Blog» در منوی سایت (به‌جای آن «Portfolio» همیشه در منو هست)</span>
+    </label>
+  </div>
 
   <h2 class="form-section-title">تیتر بخش‌های صفحهٔ نخست</h2>
 

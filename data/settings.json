@@ -7,6 +7,7 @@
   "availability": "Open to product collaborations",
   "cta": "Start a project",
   "profileImage": "/assets/images/profile.png",
+  "aboutImage": "/assets/images/profile.png",
   "workSiteUrl": "https://www.negahm.ir/",
   "workSiteLabel": "Work Site",
   "contactEmail": "hello@mohusyn.ir",
@@ -53,13 +54,54 @@
     "enFile": ""
   },
   "tagFonts": {
-    "h1": { "mode": "default", "family": "" },
-    "h2": { "mode": "default", "family": "" },
-    "h3": { "mode": "default", "family": "" },
-    "h4": { "mode": "default", "family": "" },
-    "p": { "mode": "default", "family": "" }
+    "h1": {
+      "mode": "default",
+      "family": ""
+    },
+    "h2": {
+      "mode": "default",
+      "family": ""
+    },
+    "h3": {
+      "mode": "default",
+      "family": ""
+    },
+    "h4": {
+      "mode": "default",
+      "family": ""
+    },
+    "p": {
+      "mode": "default",
+      "family": ""
+    }
   },
   "customCss": "",
   "showAdminLink": true,
-  "timezone": "Asia/Tehran"
+  "timezone": "Asia/Tehran",
+  "homeProjectsLimit": 6,
+  "showBlogInMenu": false,
+  "portfolioTitle": "Selected Work",
+  "portfolioSubtitle": "Websites, brands and motion — every project, in one place.",
+  "seo": {
+    "siteUrl": "https://www.mohusyn.ir",
+    "siteName": "MOHUSYN",
+    "defaultTitle": "Seyyed Mohammad Hossein Sheikholeslami — UI/Motion Designer & Filmmaker",
+    "titleSuffix": " — MOHUSYN",
+    "defaultDescription": "Portfolio of Mohusyn — filmmaker, editor and UI/motion designer building modern web experiences, brands and films. Start a project today.",
+    "keywordsEn": "Mohusyn, UI designer, motion designer, web designer, filmmaker, video editor, brand design, portfolio, Iran",
+    "keywordsFa": "محسین, سید محمد حسین شیخ الاسلامی, طراح سایت, طراح رابط کاربری, موشن دیزاین, فیلمساز, تدوینگر, طراحی برند",
+    "author": "Seyyed Mohammad Hossein Sheikholeslami",
+    "jobTitle": "Filmmaker, editor and UI/motion designer",
+    "city": "Tehran",
+    "country": "IR",
+    "twitter": "",
+    "ogImage": "",
+    "sameAs": "",
+    "googleVerify": "",
+    "bingVerify": "",
+    "yandexVerify": "",
+    "headExtra": "",
+    "noindex": false,
+    "pages": {}
+  }
 }

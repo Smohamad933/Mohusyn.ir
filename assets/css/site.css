@@ -439,6 +439,29 @@ html.dark header.header { background: rgba(18, 17, 16, 0.85); }
 }
 .portfolio-card:hover .portfolio-open { opacity: 1; transform: none; }
 
+/* view-all + portfolio archive */
+.portfolio-more { display: flex; justify-content: center; margin-top: 22px; }
+.portfolio-more-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 11px 24px;
+  font-size: clamp(11px, 1vw, 12.5px); font-weight: var(--fw-bold); letter-spacing: 1px; text-transform: uppercase; color: var(--ink);
+  transition: all 0.2s ease;
+}
+.portfolio-more-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.archive-head { width: 95%; max-width: 1400px; margin: 0 auto 22px; display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.archive-title { font-size: clamp(26px, 3.4vw, 44px); font-weight: var(--fw-black); color: var(--ink); line-height: 1.05; }
+.archive-sub { color: var(--ink-2); font-size: clamp(13px, 1.2vw, 15px); margin-top: 8px; max-width: 60ch; }
+.archive-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.archive-filter {
+  border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: transparent; color: var(--ink-3);
+  font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: var(--fw-bold); cursor: pointer; font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+.archive-filter:hover { color: var(--ink); border-color: var(--line-strong); }
+.archive-filter.is-on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.portfolio-card.is-filtered-out { display: none; }
+.archive-empty { text-align: center; color: var(--ink-3); padding: 40px 0; }
+
 /* ==================================================== COLLABORATORS */
 .collab-section .container-box {
   background: var(--card);
@@ -1314,14 +1337,25 @@ html.dark .blk-btn { background: var(--accent); color: var(--accent-fg); }
 /* ================================================== CONTACT PAGE */
 .contact-section {
   width: 95%;
-  max-width: 760px;
-  margin: 10px auto 40px auto;
+  max-width: 1400px; /* same edges as the top bar */
+  margin: 0 auto 40px auto;
 }
 .contact-card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: clamp(26px, 4vw, 46px);
+  padding: clamp(26px, 4vw, 54px) clamp(22px, 4vw, 60px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  column-gap: clamp(30px, 5vw, 90px);
+  align-items: start;
+}
+.contact-intro { position: sticky; top: 90px; }
+.contact-card .contact-form { grid-column: 2; }
+@media (max-width: 900px) {
+  .contact-card { grid-template-columns: 1fr; }
+  .contact-intro { position: static; }
+  .contact-card .contact-form { grid-column: auto; }
 }
 .contact-kicker {
   display: block;
@@ -1412,6 +1446,72 @@ html.dark .blk-btn { background: var(--accent); color: var(--accent-fg); }
   font-family: var(--font-body);
 }
 .contact-submit:hover { opacity: 0.88; }
+.contact-submit:disabled, .contact-submit.is-waiting { opacity: 0.45; cursor: not-allowed; }
+.contact-optional { text-transform: none; letter-spacing: 0; font-weight: var(--fw-medium); color: var(--ink-4); }
+
+/* ---- attachment uploader */
+.upload-zone {
+  position: relative;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: 22px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.upload-zone:hover, .upload-zone:focus-visible { border-color: var(--accent); outline: none; }
+.upload-zone.is-over { border-color: var(--accent); background: var(--hover-bg); transform: scale(1.01); }
+.upload-zone.is-error { border-color: #d9534f; }
+.upload-zone.is-done { animation: upload-pop 0.5s ease; }
+@keyframes upload-pop { 0% { transform: scale(1); } 40% { transform: scale(1.02); } 100% { transform: scale(1); } }
+.upload-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.upload-idle { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; pointer-events: none; }
+.upload-icon {
+  width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--hover-bg); color: var(--ink-2); border: 1px solid var(--line);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.upload-zone:hover .upload-icon { transform: translateY(-3px); color: var(--ink); }
+.upload-text { font-size: 13.5px; color: var(--ink-2); }
+.upload-text strong { color: var(--ink); font-weight: var(--fw-bold); }
+.upload-hint { font-size: 10.5px; letter-spacing: 1.2px; color: var(--ink-4); }
+
+.upload-progress, .upload-done { display: flex; align-items: center; gap: 16px; position: relative; z-index: 2; }
+.upload-progress[hidden], .upload-done[hidden], .upload-idle[hidden] { display: none; }
+.upload-zone:has(.upload-progress:not([hidden])) .upload-input,
+.upload-zone:has(.upload-done:not([hidden])) .upload-input { display: none; }
+.upload-ring { position: relative; width: 52px; height: 52px; flex-shrink: 0; }
+.upload-ring svg { width: 52px; height: 52px; transform: rotate(-90deg); }
+.upload-ring circle { fill: none; stroke-width: 3.5; }
+.ring-bg { stroke: var(--line); }
+.ring-fg { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 0.2s ease; }
+.ring-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: var(--fw-bold); color: var(--ink); }
+.upload-info { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.upload-name { font-size: 13px; color: var(--ink); font-weight: var(--fw-bold); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.upload-bar { display: block; height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.upload-bar i {
+  display: block; height: 100%; width: 0; border-radius: 4px; background: var(--accent);
+  transition: width 0.2s ease;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%; animation: upload-shimmer 1.2s linear infinite;
+}
+@keyframes upload-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.upload-status { font-size: 10px; letter-spacing: 1.4px; color: var(--ink-4); }
+.upload-check {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent); color: var(--accent-fg);
+  animation: upload-pop 0.5s ease;
+}
+.upload-check svg { width: 22px; height: 22px; }
+.check-path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: upload-check 0.45s 0.1s ease forwards; }
+@keyframes upload-check { to { stroke-dashoffset: 0; } }
+.upload-remove {
+  border: 1px solid var(--line); background: transparent; color: var(--ink-3); width: 30px; height: 30px; border-radius: 50%;
+  cursor: pointer; font-size: 12px; transition: all 0.15s ease;
+}
+.upload-remove:hover { border-color: #d9534f; color: #d9534f; }
+.upload-error { margin-top: 8px; font-size: 12.5px; color: #d9534f; }
+@media (prefers-reduced-motion: reduce) { .upload-bar i, .upload-check, .upload-zone.is-done { animation: none; } }
 @media (max-width: 600px) {
   .contact-row { grid-template-columns: 1fr; gap: 0; }
 }

@@ -118,3 +118,30 @@ should be at least `8M` (the panel's own cap is set in `config.php`).
   database (`messages.json` collection) — no email is required.
 - Read/reply/delete messages in the panel under **پیام‌ها** (the unread count
   is shown in the sidebar; the dashboard lists the latest messages).
+
+## Contact-form attachments (20 MB)
+
+Visitors can attach one file (PDF / ZIP / images / docs / video) to the "Start a project" form.
+The file is uploaded first via `contact-upload.php` (animated progress ring; the **Send** button is
+disabled until the upload finishes), stored under `uploads/attachments/` with a random name, and
+linked to the message in the admin inbox. Requirements on IIS:
+
+- `upload_max_filesize` and `post_max_size` in `php.ini` ≥ `20M` (e.g. `25M`).
+- `web.config` already sets `maxAllowedContentLength` to 25 MB.
+- The app-pool identity needs write access to `uploads/` (a `web.config` that disables
+  script execution is created inside `uploads/attachments/` automatically).
+
+## SEO
+
+Admin → **سئو** (`/admin/seo.php`): Persian + English keywords, per-page title/description,
+Person/WebSite identity, OG image, Google/Bing/Yandex verification tags and extra `<head>` code.
+The site emits: title/description/keywords/robots/author, canonical + hreflang, Open Graph and
+Twitter cards, JSON-LD (Person, WebSite, AboutPage, CollectionPage, CreativeWork, BlogPosting,
+ContactPage, BreadcrumbList), and generates `/sitemap.xml` (with images) and `/robots.txt`.
+Projects and posts have their own SEO title / description / keywords fields.
+
+## Portfolio archive
+
+`/work/` lists every published project with category filters; the landing page shows the first
+*N* projects (admin → معرفی و متن‌ها → پورتفولیو) with a "View all" button. **Portfolio** replaced
+**Blog** in the menu; the blog can be re-enabled in the menu from the same settings section.

@@ -3,27 +3,9 @@
 $locale = 'en';
 $settings = get_settings();
 
-/* Meta title / description */
+/* SEO meta bundle (title/description/OG/JSON-LD) — see app/seo.php + admin/seo.php */
+$seoMeta = seo_build($view, $locale, isset($post) ? $post : null, isset($project) ? $project : null);
 $brand = setting('brand', 'MOHUSYN');
-if ($view === 'post' && isset($post['title'])) {
-    $metaTitle = bi($post['title'], $locale) . ' — ' . $brand;
-    $metaDesc = bi(isset($post['excerpt']) ? $post['excerpt'] : '', $locale);
-} elseif ($view === 'work' && isset($project['title'])) {
-    $metaTitle = bi($project['title'], $locale) . ' — ' . $brand;
-    $metaDesc = bi(isset($project['category']) ? $project['category'] : '', $locale);
-} elseif ($view === 'blog') {
-    $metaTitle = t('blog.title', $locale) . ' — ' . $brand;
-    $metaDesc = t('blog.subtitle', $locale);
-} elseif ($view === 'about') {
-    $metaTitle = page_setting('about', 'title') . ' — ' . $brand;
-    $metaDesc = page_setting('about', 'subtitle');
-} elseif ($view === 'contact') {
-    $metaTitle = 'Contact — ' . $brand;
-    $metaDesc = 'Start a project — send a message and get a reply.';
-} else {
-    $metaTitle = $brand . ' | ' . setting_bi('fullName', $locale);
-    $metaDesc = setting_bi('bio', $locale);
-}
 
 $reqPath = current_request_path();
 $canonicalPath = rtrim($reqPath, '/') . '/';
@@ -68,22 +50,14 @@ foreach (array('h1', 'h2', 'h3', 'h4', 'p') as $tag) {
 $customCss = isset($settings['customCss']) ? (string) $settings['customCss'] : '';
 $customCss = str_ireplace('</style', '', $customCss);
 
-$hasPosts = count(published_items('posts')) > 0;
+$hasPosts = count(published_items('posts')) > 0 && setting('showBlogInMenu', false);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?php echo e($metaTitle); ?></title>
-<meta name="description" content="<?php echo e($metaDesc); ?>">
-<link rel="canonical" href="<?php echo e($canonicalPath); ?>">
-<?php if (function_exists('builder_mode') && builder_mode()): ?>
-<meta name="robots" content="noindex, nofollow">
-<?php endif; ?>
-<meta property="og:title" content="<?php echo e($metaTitle); ?>">
-<meta property="og:description" content="<?php echo e($metaDesc); ?>">
-<meta property="og:type" content="website">
+<?php seo_head($seoMeta, $locale); ?>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23111111'/%3E%3Ctext x='32' y='46' font-family='monospace' font-size='36' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,6 +96,7 @@ try { if (localStorage.getItem('mohusyn-theme') === 'dark') document.documentEle
 
     <nav class="header-nav">
       <a class="link-menu-text <?php echo $view === 'home' ? 'is-active' : ''; ?>" href="/">Home</a>
+      <a class="link-menu-text <?php echo ($view === 'portfolio' || $view === 'work') ? 'is-active' : ''; ?>" href="/work/">Portfolio</a>
       <a class="link-menu-text <?php echo $view === 'about' ? 'is-active' : ''; ?>" href="/about/">About Me</a>
       <?php if ($hasPosts): ?>
       <a class="link-menu-text <?php echo ($view === 'blog' || $view === 'post') ? 'is-active' : ''; ?>" href="/blog/">Blog</a>
@@ -144,6 +119,7 @@ try { if (localStorage.getItem('mohusyn-theme') === 'dark') document.documentEle
 
   <div class="mobile-menu" data-mobile-menu>
     <a href="/">Home</a>
+    <a href="/work/">Portfolio</a>
     <a href="/about/">About Me</a>
     <?php if ($hasPosts): ?>
     <a href="/blog/">Blog</a>

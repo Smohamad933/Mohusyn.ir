@@ -25,7 +25,7 @@ $media = media_list();
 admin_header('blocks', 'بلوک‌ساز بصری');
 ?>
 <style>
-  .admin-main { max-width: none; padding: 18px 20px 20px; display: flex; flex-direction: column; min-height: 100vh; }
+  .admin-main { max-width: none; padding: 14px 20px 20px; display: flex; flex-direction: column; }
 </style>
 
 <div class="builder" id="builder" data-page="<?php echo e($page); ?>" data-url="<?php echo e($pageUrls[$page]); ?>">

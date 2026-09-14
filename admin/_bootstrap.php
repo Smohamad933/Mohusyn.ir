@@ -178,37 +178,30 @@ function admin_header($active, $pageTitle)
   $nav[] = array('group' => 'فایل‌ها');
   $nav[] = array('key' => 'media', 'href' => 'media.php', 'label' => 'رسانه‌ها', 'desc' => 'همهٔ تصاویر آپلودشده');
   ?>
-  <aside class="sidebar" id="sidebar" data-rail>
-    <div class="sidebar-top">
-      <button type="button" class="rail-toggle" data-rail-toggle aria-label="باز/بسته‌کردن منو" title="باز/بسته‌کردن منو">
-        <?php echo $ico['expand']; ?>
-      </button>
-      <a class="sidebar-brand" href="index.php"><span class="brand-mark">M</span><span class="brand-text">MOHUSYN <small>پنل مدیریت</small></span></a>
-    </div>
-    <nav class="sidebar-nav">
-      <?php foreach ($nav as $item): ?>
-        <?php if (isset($item['group'])): ?>
-          <div class="sidebar-group"><span><?php echo e($item['group']); ?></span></div>
-        <?php else: ?>
-          <a href="<?php echo e($item['href']); ?>" class="nav-item <?php echo $active === $item['key'] ? 'active' : ''; ?>" data-tip="<?php echo e($item['label']); ?>">
-            <span class="nav-ico"><?php echo isset($ico[$item['key']]) ? $ico[$item['key']] : $ico['pages']; ?>
-              <?php if (!empty($item['badge'])): ?><i class="nav-dot"></i><?php endif; ?>
-            </span>
-            <span class="nav-text">
-              <span class="nav-label"><?php echo e($item['label']); ?>
-                <?php if (!empty($item['badge'])): ?><span class="nav-badge"><?php echo e(fa_digits($item['badge'])); ?></span><?php endif; ?>
+  <header class="topbar" id="topbar">
+    <div class="topbar-row">
+      <a class="topbar-brand" href="index.php">MOHUSYN <small>پنل مدیریت</small></a>
+      <nav class="tabbar" aria-label="بخش‌های پنل">
+        <?php foreach ($nav as $item): ?>
+          <?php if (isset($item['group'])): ?>
+            <span class="tab-sep" aria-hidden="true"></span>
+          <?php else: ?>
+            <a href="<?php echo e($item['href']); ?>" class="tab <?php echo $active === $item['key'] ? 'active' : ''; ?>" data-tip="<?php echo e($item['label']); ?>">
+              <span class="tab-ico"><?php echo isset($ico[$item['key']]) ? $ico[$item['key']] : $ico['pages']; ?>
+                <?php if (!empty($item['badge'])): ?><i class="tab-dot"></i><?php endif; ?>
               </span>
-              <?php if ($item['desc'] !== ''): ?><small><?php echo e($item['desc']); ?></small><?php endif; ?>
-            </span>
-          </a>
-        <?php endif; ?>
-      <?php endforeach; ?>
-    </nav>
-    <div class="sidebar-foot">
-      <a href="/" target="_blank" class="nav-item" data-tip="مشاهدهٔ سایت"><span class="nav-ico"><?php echo $ico['site']; ?></span><span class="nav-text"><span class="nav-label">مشاهدهٔ سایت</span></span></a>
-      <a href="logout.php" class="nav-item" data-tip="خروج"><span class="nav-ico"><?php echo $ico['logout']; ?></span><span class="nav-text"><span class="nav-label">خروج</span></span></a>
+              <span class="tab-label"><?php echo e($item['label']); ?><?php if (!empty($item['badge'])): ?> <b class="nav-badge"><?php echo e(fa_digits($item['badge'])); ?></b><?php endif; ?></span>
+            </a>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </nav>
+      <div class="topbar-end">
+        <button type="button" class="rail-toggle" data-rail-toggle aria-label="نمایش/پنهان‌کردن نام تب‌ها" title="نمایش/پنهان‌کردن نام تب‌ها"><?php echo $ico['expand']; ?></button>
+        <a href="/" target="_blank" class="tab" data-tip="مشاهدهٔ سایت"><span class="tab-ico"><?php echo $ico['site']; ?></span><span class="tab-label">سایت</span></a>
+        <a href="logout.php" class="tab" data-tip="خروج"><span class="tab-ico"><?php echo $ico['logout']; ?></span><span class="tab-label">خروج</span></a>
+      </div>
     </div>
-  </aside>
+  </header>
 
   <main class="admin-main">
     <?php

@@ -359,3 +359,13 @@ function sanitize_filename($name)
     $name = preg_replace('/-{2,}/', '-', $name);
     return $name === '' || $name === '.' ? 'file' : $name;
 }
+
+/* ------------------------------------------------------ asset versioning */
+
+/** Append the file's mtime so browsers/IIS never serve a stale CSS/JS after an update. */
+function asset($path)
+{
+    $file = ROOT_PATH . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, ltrim($path, '/'));
+    $v = is_file($file) ? (string) filemtime($file) : '1';
+    return $path . '?v=' . $v;
+}

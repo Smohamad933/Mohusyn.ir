@@ -76,7 +76,7 @@ $hasPosts = count(published_items('posts')) > 0 && setting('showBlogInMenu', fal
 <?php endif; ?>
 :root { --font-body: <?php echo $fontStack; ?>; --font-display: <?php echo $displayStack; ?>; --font-main: <?php echo $fontStack; ?>; }
 </style>
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="<?php echo e(asset('/assets/css/site.css')); ?>">
 <?php if (!empty($tagFontRules) || trim($customCss) !== ''): ?>
 <style id="site-custom">
 <?php echo implode("\n", $tagFontRules); ?>

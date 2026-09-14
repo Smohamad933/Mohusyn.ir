@@ -29,12 +29,12 @@
   </div>
 </footer>
 
-<script src="/assets/js/site.js"></script>
+<script src="<?php echo e(asset('/assets/js/site.js')); ?>"></script>
 <?php if (isset($view) && $view === 'contact'): ?>
-<script src="/assets/js/contact.js"></script>
+<script src="<?php echo e(asset('/assets/js/contact.js')); ?>"></script>
 <?php endif; ?>
 <?php if (function_exists('builder_mode') && builder_mode()): ?>
-<script src="/assets/js/builder-frame.js"></script>
+<script src="<?php echo e(asset('/assets/js/builder-frame.js')); ?>"></script>
 <?php endif; ?>
 </body>
 </html>

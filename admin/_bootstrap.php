@@ -131,7 +131,7 @@ function admin_header($active, $pageTitle)
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/admin.css">
+<link rel="stylesheet" href="<?php echo e(asset('/admin/assets/admin.css')); ?>">
 </head>
 <body class="admin-body">
 <script>try { if (localStorage.getItem('mohusyn-admin-rail') === 'open') document.body.classList.add('rail-open'); } catch (e) {}</script>

@@ -78,6 +78,9 @@ $hasPosts = count(published_items('posts')) > 0;
 <title><?php echo e($metaTitle); ?></title>
 <meta name="description" content="<?php echo e($metaDesc); ?>">
 <link rel="canonical" href="<?php echo e($canonicalPath); ?>">
+<?php if (function_exists('builder_mode') && builder_mode()): ?>
+<meta name="robots" content="noindex, nofollow">
+<?php endif; ?>
 <meta property="og:title" content="<?php echo e($metaTitle); ?>">
 <meta property="og:description" content="<?php echo e($metaDesc); ?>">
 <meta property="og:type" content="website">

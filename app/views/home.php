@@ -179,8 +179,7 @@ if ($heroImg !== '' && strpos($heroImg, 'uploads/') === 0) { $heroImg = '/' . $h
         <?php endif; ?>
       </div>
     </div>
-    <?php $email = setting('contactEmail'); ?>
-    <a class="avail-cta" href="<?php echo $email !== '' ? 'mailto:' . e($email) : '#contact'; ?>">
+    <a class="avail-cta" href="/contact/">
       <?php echo e(setting('availCta', 'Apply for a Project')); ?>
       <span class="btn-arrow">→</span>
     </a>

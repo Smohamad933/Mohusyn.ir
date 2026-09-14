@@ -69,7 +69,7 @@ function render_blocks($page)
 
         } elseif ($type === 'button') {
             $label = isset($d['label']) ? $d['label'] : '';
-            $url = isset($d['url']) ? $d['url'] : '#contact';
+            $url = isset($d['url']) && $d['url'] !== '' ? $d['url'] : '/contact/';
             $style = isset($d['style']) && $d['style'] === 'outline' ? ' blk-btn-outline' : '';
             $align = isset($d['align']) && in_array($d['align'], array('left', 'center', 'right'), true) ? $d['align'] : 'left';
             echo '<div class="blk blk-button blk-align-' . $align . '">'

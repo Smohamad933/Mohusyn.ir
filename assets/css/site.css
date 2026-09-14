@@ -1425,6 +1425,12 @@ html.dark .blk-btn { background: var(--accent); color: var(--accent-fg); }
 
 /* ============================================ VISUAL BUILDER (admin preview) */
 html.builder-frame .blocks-area { min-height: 90px; }
+html.builder-frame body::before {
+  content: "حالت ویرایش — بلوک‌ها را اینجا رها کنید";
+  position: fixed; bottom: 12px; inset-inline-start: 12px; z-index: 9999;
+  background: #0d0d0f; color: #d7ff3e; font: 600 11px/1 "Vazirmatn", sans-serif;
+  padding: 8px 12px; border-radius: 999px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); direction: rtl; pointer-events: none;
+}
 .bf-area { position: relative; }
 .bf-block { position: relative; outline: 1px dashed transparent; outline-offset: 6px; border-radius: 6px; transition: outline-color 0.15s ease; cursor: grab; }
 .bf-block:hover { outline-color: rgba(120, 120, 120, 0.5); }

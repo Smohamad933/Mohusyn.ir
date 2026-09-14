@@ -382,7 +382,7 @@ html.dark header.header { background: rgba(18, 17, 16, 0.85); }
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* two projects per row */
+  grid-template-columns: repeat(3, 1fr); /* desktop: three per row; tablet/phone: two */
   gap: 18px;
 }
 

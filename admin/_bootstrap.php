@@ -134,43 +134,79 @@ function admin_header($active, $pageTitle)
 <link rel="stylesheet" href="assets/admin.css">
 </head>
 <body class="admin-body">
+<script>try { if (localStorage.getItem('mohusyn-admin-rail') === 'open') document.body.classList.add('rail-open'); } catch (e) {}</script>
 <div class="admin-shell">
 
-  <aside class="sidebar">
-    <a class="sidebar-brand" href="index.php">MOHUSYN <span>پنل مدیریت</span></a>
+  <?php
+  $ico = array(
+    'dashboard' => '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+    'messages' => '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+    'settings' => '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+    'projects' => '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
+    'experiences' => '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>',
+    'services' => '<svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>',
+    'skills' => '<svg viewBox="0 0 24 24"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>',
+    'collaborators' => '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-5-6.3"/></svg>',
+    'posts' => '<svg viewBox="0 0 24 24"><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17z"/><path d="m13.5 6.5 3 3"/></svg>',
+    'blocks' => '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><path d="M17 14v6M14 17h6"/></svg>',
+    'pages' => '<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+    'fonts' => '<svg viewBox="0 0 24 24"><path d="M4 20 10 4h1l6 16M6.5 14h8"/><path d="M17 12h3v8"/></svg>',
+    'css' => '<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-1.5-1-2.5 1-1.5 2.5-1.5H17a4 4 0 0 0 4-4c0-4.5-4-8-9-8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15.5" cy="7.5" r="1"/></svg>',
+    'seo' => '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3M8.5 11h5M11 8.5v5"/></svg>',
+    'media' => '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-9 9"/></svg>',
+    'site' => '<svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>',
+    'logout' => '<svg viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>',
+    'expand' => '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+  );
+  $nav = array(
+    array('group' => 'نمای کلی'),
+    array('key' => 'dashboard', 'href' => 'index.php', 'label' => 'داشبورد', 'desc' => 'پیش‌نمایش سایت و دسترسی سریع'),
+    array('key' => 'messages', 'href' => 'messages.php', 'label' => 'پیام‌ها', 'desc' => 'درخواست‌های «شروع پروژه»', 'badge' => $unread),
+    array('group' => 'محتوای سایت'),
+    array('key' => 'settings', 'href' => 'settings.php', 'label' => 'معرفی و متن‌ها', 'desc' => 'نام، بیو، عکس هدر، ایمیل'),
+  );
+  foreach ($schemas as $name => $schema) {
+      $nav[] = array('key' => $name, 'href' => 'index.php?tab=' . $name, 'label' => $schema['label'], 'desc' => isset($schema['desc']) ? $schema['desc'] : '');
+  }
+  $nav[] = array('group' => 'طراحی و چیدمان');
+  $nav[] = array('key' => 'blocks', 'href' => 'blocks.php', 'label' => 'بلوک‌ساز بصری', 'desc' => 'درگ‌اند‌دراپ روی پیش‌نمایش زنده');
+  $nav[] = array('key' => 'pages', 'href' => 'pages.php', 'label' => 'بخش‌های صفحات', 'desc' => 'روشن/خاموش‌کردن هر بخش');
+  $nav[] = array('key' => 'fonts', 'href' => 'settings.php#tab-fonts', 'label' => 'فونت‌ها', 'desc' => 'فونت متن‌ها و تیترها');
+  $nav[] = array('key' => 'css', 'href' => 'css.php', 'label' => 'CSS سفارشی', 'desc' => 'برای کاربران حرفه‌ای');
+  $nav[] = array('group' => 'دیده‌شدن');
+  $nav[] = array('key' => 'seo', 'href' => 'seo.php', 'label' => 'سئو', 'desc' => 'کلمات کلیدی، گوگل و بینگ');
+  $nav[] = array('group' => 'فایل‌ها');
+  $nav[] = array('key' => 'media', 'href' => 'media.php', 'label' => 'رسانه‌ها', 'desc' => 'همهٔ تصاویر آپلودشده');
+  ?>
+  <aside class="sidebar" id="sidebar" data-rail>
+    <div class="sidebar-top">
+      <button type="button" class="rail-toggle" data-rail-toggle aria-label="باز/بسته‌کردن منو" title="باز/بسته‌کردن منو">
+        <?php echo $ico['expand']; ?>
+      </button>
+      <a class="sidebar-brand" href="index.php"><span class="brand-mark">M</span><span class="brand-text">MOHUSYN <small>پنل مدیریت</small></span></a>
+    </div>
     <nav class="sidebar-nav">
-      <div class="sidebar-group">نمای کلی</div>
-      <a href="index.php" class="<?php echo $active === 'dashboard' ? 'active' : ''; ?>">⌂ داشبورد<small>پیش‌نمایش سایت و دسترسی سریع</small></a>
-      <a href="messages.php" class="<?php echo $active === 'messages' ? 'active' : ''; ?>">
-        ✉ پیام‌ها
-        <?php if ($unread > 0): ?><span class="nav-badge"><?php echo e(fa_digits($unread)); ?></span><?php endif; ?>
-        <small>درخواست‌های «شروع پروژه»</small>
-      </a>
-
-      <div class="sidebar-group">محتوای سایت</div>
-      <a href="settings.php" class="<?php echo $active === 'settings' ? 'active' : ''; ?>">👤 معرفی و متن‌ها<small>نام، بیو، عکس هدر، ایمیل، تیترها</small></a>
-      <?php foreach ($schemas as $name => $schema): ?>
-        <a href="index.php?tab=<?php echo e($name); ?>" class="<?php echo $active === $name ? 'active' : ''; ?>">
-          <?php echo e($schema['icon']); ?> <?php echo e($schema['label']); ?>
-          <small><?php echo e(isset($schema['desc']) ? $schema['desc'] : ''); ?></small>
-        </a>
+      <?php foreach ($nav as $item): ?>
+        <?php if (isset($item['group'])): ?>
+          <div class="sidebar-group"><span><?php echo e($item['group']); ?></span></div>
+        <?php else: ?>
+          <a href="<?php echo e($item['href']); ?>" class="nav-item <?php echo $active === $item['key'] ? 'active' : ''; ?>" data-tip="<?php echo e($item['label']); ?>">
+            <span class="nav-ico"><?php echo isset($ico[$item['key']]) ? $ico[$item['key']] : $ico['pages']; ?>
+              <?php if (!empty($item['badge'])): ?><i class="nav-dot"></i><?php endif; ?>
+            </span>
+            <span class="nav-text">
+              <span class="nav-label"><?php echo e($item['label']); ?>
+                <?php if (!empty($item['badge'])): ?><span class="nav-badge"><?php echo e(fa_digits($item['badge'])); ?></span><?php endif; ?>
+              </span>
+              <?php if ($item['desc'] !== ''): ?><small><?php echo e($item['desc']); ?></small><?php endif; ?>
+            </span>
+          </a>
+        <?php endif; ?>
       <?php endforeach; ?>
-
-      <div class="sidebar-group">طراحی و چیدمان</div>
-      <a href="blocks.php" class="<?php echo $active === 'blocks' ? 'active' : ''; ?>">⬒ بلوک‌ساز بصری<small>درگ‌اند‌دراپ روی پیش‌نمایش زنده</small></a>
-      <a href="pages.php" class="<?php echo $active === 'pages' ? 'active' : ''; ?>">▣ بخش‌های صفحات<small>روشن/خاموش‌کردن هر بخش</small></a>
-      <a href="settings.php#tab-fonts" class="<?php echo $active === 'fonts' ? 'active' : ''; ?>">Aa فونت‌ها<small>فونت متن‌ها و تیترها</small></a>
-      <a href="css.php" class="<?php echo $active === 'css' ? 'active' : ''; ?>">🎨 CSS سفارشی<small>برای کاربران حرفه‌ای</small></a>
-
-      <div class="sidebar-group">دیده‌شدن</div>
-      <a href="seo.php" class="<?php echo $active === 'seo' ? 'active' : ''; ?>">🔎 سئو<small>کلمات کلیدی، گوگل و بینگ</small></a>
-
-      <div class="sidebar-group">فایل‌ها</div>
-      <a href="media.php" class="<?php echo $active === 'media' ? 'active' : ''; ?>">▤ رسانه‌ها<small>همهٔ تصاویر آپلودشده</small></a>
     </nav>
     <div class="sidebar-foot">
-      <a href="/" target="_blank">مشاهدهٔ سایت ↗</a>
-      <a href="logout.php">خروج</a>
+      <a href="/" target="_blank" class="nav-item" data-tip="مشاهدهٔ سایت"><span class="nav-ico"><?php echo $ico['site']; ?></span><span class="nav-text"><span class="nav-label">مشاهدهٔ سایت</span></span></a>
+      <a href="logout.php" class="nav-item" data-tip="خروج"><span class="nav-ico"><?php echo $ico['logout']; ?></span><span class="nav-text"><span class="nav-label">خروج</span></span></a>
     </div>
   </aside>
 
@@ -292,6 +328,15 @@ function admin_footer()
     input.insertAdjacentElement("afterend", btn);
     input.insertAdjacentElement("afterend", file);
   });
+
+  /* ------------------------------------- collapsible icon sidebar */
+  var railBtn = document.querySelector('[data-rail-toggle]');
+  if (railBtn) {
+    railBtn.addEventListener('click', function () {
+      var open = document.body.classList.toggle('rail-open');
+      try { localStorage.setItem('mohusyn-admin-rail', open ? 'open' : 'closed'); } catch (e) {}
+    });
+  }
 
   /* ----------------------------------------- confirm dangerous ops */
   document.querySelectorAll("[data-confirm]").forEach(function (el) {

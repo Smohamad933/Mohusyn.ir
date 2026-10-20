@@ -161,6 +161,7 @@ const Contact: React.FC = () => {
   const socialLinks = [
     st.socials.github ? { icon: Github, link: st.socials.github, color: 'hover:text-slate-900 dark:hover:text-white' } : null,
     st.socials.linkedin ? { icon: Linkedin, link: st.socials.linkedin, color: 'hover:text-blue-600' } : null,
+    st.socials.telegram ? { icon: Send, link: (st.socials.telegram.startsWith('http') ? st.socials.telegram : `https://t.me/${st.socials.telegram.replace('@', '')}`), color: 'hover:text-sky-500' } : null,
     st.socials.instagram ? { icon: Instagram, link: st.socials.instagram, color: 'hover:text-pink-500' } : null,
     st.socials.facebook ? { icon: Facebook, link: st.socials.facebook, color: 'hover:text-blue-500' } : null,
     st.socials.youtube ? { icon: Youtube, link: st.socials.youtube, color: 'hover:text-red-500' } : null,

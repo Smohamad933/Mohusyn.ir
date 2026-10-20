@@ -23,7 +23,7 @@ export interface Settings {
   heroPrefix: string; roles: string[]; heroImage: string; aboutImage: string; ogImage: string; bannerImage: string; showBanner: boolean;
   ctaPrimary: { label: string; href: string }; ctaSecondary: { label: string; href: string; show: boolean };
   badges: { emoji: string; label: string; value: string }[];
-  socials: { github: string; facebook: string; linkedin: string; instagram: string; youtube: string; email: string; phone: string; whatsapp: string; location: string; githubRepo: string };
+  socials: { github: string; facebook: string; linkedin: string; instagram: string; youtube: string; telegram: string; email: string; phone: string; whatsapp: string; location: string; githubRepo: string };
   stack: { name: string; icon: string }[];
   about: { kicker: string; roleLine: string; p1: string; p2: string; stats: { value: string; label: string }[]; tech: string[]; cards: { title: string; text: string }[]; topSkill: string; passion: string; country: string; openToWork: boolean };
   sectionTitles: Record<string, { title: string; subtitle: string }>;

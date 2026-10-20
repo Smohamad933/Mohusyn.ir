@@ -1,6 +1,6 @@
 import { useSettings } from '../../context/ContentContext';
 import React from 'react';
-import { Heart, Github, Linkedin, Instagram, Mail, ArrowUp, Code2, Sparkles, Zap } from 'lucide-react';
+import { Heart, Send, Github, Linkedin, Instagram, Mail, ArrowUp, Code2, Sparkles, Zap } from 'lucide-react';
 
 const footerStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;900&display=swap');
@@ -91,6 +91,7 @@ const Footer: React.FC = () => {
     social: [
       st.socials.github ? { icon: Github, href: st.socials.github, label: 'GitHub' } : null,
       st.socials.linkedin ? { icon: Linkedin, href: st.socials.linkedin, label: 'LinkedIn' } : null,
+      st.socials.telegram ? { icon: Send, href: (st.socials.telegram.startsWith('http') ? st.socials.telegram : `https://t.me/${st.socials.telegram.replace('@', '')}`), label: 'Telegram' } : null,
       st.socials.instagram ? { icon: Instagram, href: st.socials.instagram, label: 'Instagram' } : null,
       st.socials.email ? { icon: Mail, href: `mailto:${st.socials.email}`, label: 'Email' } : null,
     ].filter(Boolean) as { icon: any; href: string; label: string }[],

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Sparkles, Coffee } from 'lucide-react';
+import { ArrowRight, Sparkles, FileDown } from 'lucide-react';
 import Tilt3D from '../ui/Tilt3D';
 import { triggerIsland } from '../layout/DynamicIsland';
 import { useSettings } from '../../context/ContentContext';
@@ -350,7 +350,7 @@ const Hero: React.FC = () => {
                       <span className="steam-2 w-[3px] h-5 rounded-full bg-amber-950/50" />
                       <span className="steam-3 w-[3px] h-4 rounded-full bg-amber-950/50" />
                     </span>
-                    <Coffee size={22} className="cup-bounce text-amber-950 drop-shadow-md" />
+                    <FileDown size={22} className="cup-bounce text-amber-950 drop-shadow-md" />
                   </span>
                   <span className="flex flex-col items-start leading-none gap-[2px]">
                     <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-amber-950/60">{st.ctaSecondary.label.split("|")[0].trim()}</span>

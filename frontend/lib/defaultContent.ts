@@ -23,7 +23,7 @@ export const DEFAULT_CONTENT: Content = {
       { emoji: '🇮🇷', label: 'Based in', value: 'Iran' },
       { emoji: '🎨', label: 'Loves', value: 'Design & Code' },
     ],
-    socials: { github: '', facebook: '', linkedin: '', instagram: '', youtube: '', email: 'hello@mohusyn.ir', phone: '', whatsapp: '', location: 'Tehran, Iran', githubRepo: '' },
+    socials: { github: '', facebook: '', linkedin: 'https://www.linkedin.com/', instagram: 'https://instagram.com/', youtube: '', telegram: 'https://t.me/', email: 'hello@mohusyn.ir', phone: '', whatsapp: '', location: 'Tehran, Iran', githubRepo: '' },
     stack: [
       { name: 'React', icon: '⚛️' }, { name: 'TypeScript', icon: '🟦' }, { name: 'Tailwind', icon: '🌊' }, { name: 'Node.js', icon: '🟢' },
       { name: 'PHP', icon: '🐘' }, { name: 'Figma', icon: '🎨' }, { name: 'VS Code', icon: '💙' },
@@ -48,7 +48,7 @@ export const DEFAULT_CONTENT: Content = {
       contact: { title: "Let's Connect", subtitle: "I'm always open to discussing new projects & ideas" },
       gallery: { title: 'Photo Gallery', subtitle: 'Moments, places and behind-the-scenes.' },
     },
-    sections: { about: true, projects: true, resources: true, feed: true, timeline: true, testimonials: true, contact: true, marquee: true, gallery: true, tools: true, vault: true, music: true, dock: true, island: true, preloader: true, welcome: true, contextMenu: true },
+    sections: { about: true, projects: true, resources: false, feed: true, timeline: true, testimonials: true, contact: true, marquee: true, gallery: true, tools: true, vault: true, music: true, dock: true, island: true, preloader: true, welcome: true, contextMenu: true },
     feedbackStats: { satisfaction: '97', reviews: '240+', rating: '5', verified: '180+', footer: 'Trusted by 200+ clients' },
     contact: { availability: 'Available for Projects', projectsDone: '15+ Successful' },
     feed: { network: 'Instagram', profileUrl: 'https://instagram.com/', profilePic: '' },

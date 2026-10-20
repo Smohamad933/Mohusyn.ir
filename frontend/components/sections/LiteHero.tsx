@@ -5,7 +5,7 @@
 import { useSettings } from '../../context/ContentContext';
 import SocialIcons from '../ui/SocialIcons';
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Sparkles, Coffee } from 'lucide-react';
+import { ArrowRight, Sparkles, FileDown } from 'lucide-react';
 
 const LiteHero: React.FC = () => {
   const [text, setText] = useState('');
@@ -129,7 +129,7 @@ const LiteHero: React.FC = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 font-bold transition-all duration-200 border-2 group rounded-2xl active:scale-95 bg-amber-50 dark:bg-amber-950/40 border-amber-400/60 text-amber-800 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60"
               >
-                <Coffee size={18} className="transition-transform group-hover:scale-110" />
+                <FileDown size={18} className="transition-transform group-hover:scale-110" />
                 <span>{st.ctaSecondary.label.split("|").pop()?.trim()}</span>
               </a>
               )}

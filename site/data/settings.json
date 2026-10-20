@@ -45,14 +45,15 @@
   "socials": {
     "github": "",
     "facebook": "",
-    "linkedin": "",
-    "instagram": "",
+    "linkedin": "https://www.linkedin.com/",
+    "instagram": "https://instagram.com/",
     "youtube": "",
     "email": "hello@mohusyn.ir",
     "phone": "",
     "whatsapp": "",
     "location": "Tehran, Iran",
-    "githubRepo": ""
+    "githubRepo": "",
+    "telegram": "https://t.me/"
   },
   "stack": [
     {
@@ -164,7 +165,7 @@
   "sections": {
     "about": true,
     "projects": true,
-    "resources": true,
+    "resources": false,
     "feed": true,
     "timeline": true,
     "testimonials": true,

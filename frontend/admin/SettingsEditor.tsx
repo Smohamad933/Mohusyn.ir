@@ -111,8 +111,8 @@ export const SettingsEditor: React.FC<{ settings: Settings; onSaved: (s: Setting
 
       {tab === 'socials' && (
         <div className="ad-grid">
-          {(['email', 'phone', 'whatsapp', 'location', 'linkedin', 'instagram', 'facebook', 'youtube', 'github'] as const).map((k) => (
-            <Field key={k} label={{ email: 'ایمیل', phone: 'تلفن', whatsapp: 'واتس‌اپ (با کد کشور، مثل 98912…)', location: 'موقعیت', github: 'GitHub (اختیاری — خالی بماند تا نمایش داده نشود)', linkedin: 'LinkedIn', instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube' }[k]}>
+          {(['email', 'phone', 'whatsapp', 'location', 'linkedin', 'telegram', 'instagram', 'facebook', 'youtube', 'github'] as const).map((k) => (
+            <Field key={k} label={{ email: 'ایمیل', phone: 'تلفن', whatsapp: 'واتس‌اپ (با کد کشور، مثل 98912…)', location: 'موقعیت', github: 'GitHub (اختیاری — خالی بماند تا نمایش داده نشود)', linkedin: 'LinkedIn', telegram: 'تلگرام (لینک یا @username)', instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube' }[k]}>
               <Input dir="ltr" value={(s.socials as any)[k] || ''} onChange={(e) => setIn('socials', { [k]: e.target.value } as any)} />
             </Field>
           ))}

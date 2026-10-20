@@ -4,7 +4,6 @@ import {
   MessageCircle, Music, Bot, ArrowUp, 
   Home, GripHorizontal
 } from 'lucide-react';
-import VoiceControl from '../tools/VoiceControl';
 import { useSettings } from '../../context/ContentContext';
 
 interface FloatingDockProps {
@@ -34,7 +33,7 @@ const FloatingDock: React.FC<FloatingDockProps> = ({ toggleChat, toggleMusic, to
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const dockItems = [
+  const dockItems: { id: string; label: string; icon?: React.ReactNode; color: string; bgGlow: string; action?: () => void; isCustom?: boolean; component?: React.ReactNode }[] = [
     {
       id: "home",
       label: "Home",
@@ -50,20 +49,6 @@ const FloatingDock: React.FC<FloatingDockProps> = ({ toggleChat, toggleMusic, to
       color: "hover:text-purple-400",
       bgGlow: "group-hover:bg-purple-500/20",
       action: toggleChat
-    },
-    {
-      id: "voice",
-      label: "Voice",
-      isCustom: true,
-      component: (
-        <VoiceControl
-          toggleTheme={toggleTheme} 
-          toggleChat={toggleChat} 
-          toggleMusic={toggleMusic}
-        />
-      ),
-      color: "hover:text-red-400", 
-      bgGlow: "group-hover:bg-red-500/20",
     },
     {
       id: "whatsapp",

@@ -43,7 +43,7 @@
     }
   ],
   "socials": {
-    "github": "https://github.com/Smohamad933",
+    "github": "",
     "facebook": "",
     "linkedin": "",
     "instagram": "",
@@ -52,7 +52,7 @@
     "phone": "",
     "whatsapp": "",
     "location": "Tehran, Iran",
-    "githubRepo": "Smohamad933/Mohusyn.ir"
+    "githubRepo": ""
   },
   "stack": [
     {
@@ -82,10 +82,6 @@
     {
       "name": "VS Code",
       "icon": "💙"
-    },
-    {
-      "name": "Github",
-      "icon": "🐙"
     }
   ],
   "about": {

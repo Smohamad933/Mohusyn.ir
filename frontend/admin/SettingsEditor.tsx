@@ -111,12 +111,11 @@ export const SettingsEditor: React.FC<{ settings: Settings; onSaved: (s: Setting
 
       {tab === 'socials' && (
         <div className="ad-grid">
-          {(['email', 'phone', 'whatsapp', 'location', 'github', 'linkedin', 'instagram', 'facebook', 'youtube'] as const).map((k) => (
-            <Field key={k} label={{ email: 'ایمیل', phone: 'تلفن', whatsapp: 'واتس‌اپ (با کد کشور، مثل 98912…)', location: 'موقعیت', github: 'GitHub', linkedin: 'LinkedIn', instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube' }[k]}>
+          {(['email', 'phone', 'whatsapp', 'location', 'linkedin', 'instagram', 'facebook', 'youtube', 'github'] as const).map((k) => (
+            <Field key={k} label={{ email: 'ایمیل', phone: 'تلفن', whatsapp: 'واتس‌اپ (با کد کشور، مثل 98912…)', location: 'موقعیت', github: 'GitHub (اختیاری — خالی بماند تا نمایش داده نشود)', linkedin: 'LinkedIn', instagram: 'Instagram', facebook: 'Facebook', youtube: 'YouTube' }[k]}>
               <Input dir="ltr" value={(s.socials as any)[k] || ''} onChange={(e) => setIn('socials', { [k]: e.target.value } as any)} />
             </Field>
           ))}
-          <Field label="ریپوی گیت‌هاب برای نشان ستاره (owner/repo)" hint="خالی بگذارید تا نشان ستاره پنهان شود"><Input dir="ltr" value={s.socials.githubRepo || ''} onChange={(e) => setIn('socials', { githubRepo: e.target.value })} /></Field>
           <h4 className="ad-sub">بخش تماس</h4>
           <Field label="وضعیت (Availability)"><Input value={s.contact.availability} onChange={(e) => setIn('contact', { availability: e.target.value })} /></Field>
           <Field label="تعداد پروژه‌های انجام‌شده"><Input value={s.contact.projectsDone} onChange={(e) => setIn('contact', { projectsDone: e.target.value })} /></Field>

@@ -11,7 +11,6 @@ import {
 import ThemeToggle from '../ui/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
 import { useSettings } from '../../context/ContentContext';
-import AuthModal from '../modals/AuthModal';
 import { useNavigate } from 'react-router-dom';
 
 // ✅ onOpenTools / onOpenGallery সরানো হয়েছে
@@ -24,7 +23,6 @@ const LiteNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
   const [isOpen, setIsOpen]         = useState(false);
   const [scrolled, setScrolled]     = useState(false);
   const { user, logout }            = useAuth();
-  const [isAuthModalOpen, setAuthModalOpen] = useState(false);
   const navigate                    = useNavigate();
   const st = useSettings();
 
@@ -230,16 +228,7 @@ const LiteNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
                       <LogOut size={16} />
                     </button>
                   </div>
-                ) : (
-                  <button
-                    onClick={() => setAuthModalOpen(true)}
-                    className="items-center hidden gap-2 px-4 py-2 text-sm font-bold text-white transition-all duration-200 lg:flex rounded-xl active:scale-95"
-                    style={{ background: 'linear-gradient(135deg, #6d28d9, #2563eb)' }}
-                  >
-                    <LogIn size={15} />
-                    <span>Sign In</span>
-                  </button>
-                )}
+                ) : null}
 
                 {/* Mobile: avatar bubble (when logged in) */}
                 <div className="flex items-center gap-2 lg:hidden">
@@ -326,16 +315,7 @@ const LiteNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
                   </button>
                 </div>
               </div>
-            ) : (
-              <button
-                onClick={() => { setIsOpen(false); setAuthModalOpen(true); }}
-                className="flex items-center justify-center w-full gap-2 py-4 font-bold text-white transition-all rounded-2xl active:scale-95"
-                style={{ background: 'linear-gradient(135deg, #6d28d9, #2563eb)' }}
-              >
-                <LogIn size={18} />
-                <span>Sign In / Register</span>
-              </button>
-            )}
+            ) : null}
           </div>
 
           {/* ── Nav Links ── */}
@@ -392,11 +372,6 @@ const LiteNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
           </div>
         </div>
       </div>
-
-      {/* Auth Modal */}
-      {isAuthModalOpen && (
-        <AuthModal isOpen={isAuthModalOpen} onClose={() => setAuthModalOpen(false)} />
-      )}
     </>
   );
 };

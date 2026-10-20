@@ -2,6 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useSettings } from './context/ContentContext';
+import SquareGridBackground from './components/ui/SquareGridBackground';
 
 // 🚀 Performance hooks (lightweight — eagerly load করা ঠিক আছে)
 import { usePerformanceOptimizer } from './hooks/usePerformanceOptimizer';
@@ -247,7 +248,8 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden font-sans transition-colors duration-300 bg-white dark:bg-[#000000] text-slate-900 dark:text-white">
+    <main className="has-grid-bg relative min-h-screen overflow-x-hidden font-sans transition-colors duration-300 bg-transparent text-slate-900 dark:text-white">
+      <SquareGridBackground />
 
       <Toaster
         position="top-center"

@@ -52,13 +52,8 @@ const ContextMenu: React.FC = () => {
     alert('Link Copied!');
   };
 
-  const handleSourceCode = () => {
-    window.open('https://github.com/' + ((window as any).__SITE_SETTINGS__?.socials?.githubRepo || ''), '_blank');
-    setVisible(false);
-  };
-
   const handleEmail = () => {
-    window.location.href = 'mailto:your-email@gmail.com'; 
+    window.location.href = 'mailto:' + ((window as any).__SITE_SETTINGS__?.socials?.email || ''); 
     setVisible(false);
   };
 
@@ -91,12 +86,6 @@ const ContextMenu: React.FC = () => {
         </button>
 
         <div className="h-[1px] bg-white/10 my-1 mx-2"></div>
-
-        <button onClick={handleSourceCode} className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-all group">
-          <Code size={16} className="transition-colors text-slate-400 group-hover:text-pink-500" />
-          <span className="flex-1 text-left">Source Code</span>
-          <ExternalLink size={14} className="transition-opacity opacity-50 group-hover:opacity-100" />
-        </button>
       </div>
     </div>
   );

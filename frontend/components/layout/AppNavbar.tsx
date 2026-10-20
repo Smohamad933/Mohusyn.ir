@@ -3,10 +3,7 @@ import { Menu, X, Camera, Wrench, Sparkles, Home, Briefcase, User, Mail, Lock, L
 import ThemeToggle from '../ui/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
 import { useSettings } from '../../context/ContentContext'; 
-import AuthModal from '../modals/AuthModal'; 
 import { RainbowButton } from '../ui/rainbow-button'; 
-import { GitHubStarButton } from '../ui/github-star'; 
-import { PremiumSignInButton } from '../ui/premium-signin-button';
 import { useNavigate } from 'react-router-dom';
 
 // ✅ onOpenTools / onOpenGallery prop দুটো সরানো হয়েছে
@@ -20,7 +17,6 @@ const AppNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
   const [scrolled, setScrolled] = useState(false);
   
   const { user, logout } = useAuth();
-  const [isAuthModalOpen, setAuthModalOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -294,22 +290,7 @@ const AppNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
                       </div>
                     )}
                   </div>
-                ) : (
-                  <div className="ml-2">
-                    <PremiumSignInButton onClick={() => setAuthModalOpen(true)} />
-                  </div>
-                )}
-
-                {/* 🌟 GitHub Button */}
-                <div className="relative hidden ml-2 group md:block">
-                  <div className="absolute transition-all duration-500 -inset-1 bg-gradient-to-r from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/20 group-hover:to-pink-500/20 rounded-2xl blur-lg"></div>
-                  <GitHubStarButton 
-                    owner={st.socials.githubRepo.split("/")[0]} 
-                    repo={st.socials.githubRepo.split("/")[1] || ""} 
-                    stars={0} 
-                    className="relative px-4 text-xs transition-all duration-300 shadow-lg h-9 hover:shadow-xl"
-                  />
-                </div>
+                ) : null}
 
                 {/* 🍔 Mobile Menu Toggle */}
                 <button 
@@ -328,7 +309,6 @@ const AppNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
         </div>
       </nav>
 
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setAuthModalOpen(false)} />
 
       {/* 🌟 PREMIUM MOBILE OVERLAY */}
       <div 
@@ -390,17 +370,7 @@ const AppNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
                 <span className="relative z-10">View My Dashboard</span>
               </button>
             </div>
-          ) : (
-            <button 
-              onClick={() => { setIsOpen(false); setAuthModalOpen(true); }}
-              className="group relative flex items-center justify-center w-full gap-3 py-5 mb-8 font-bold text-white duration-500 shadow-2xl rounded-3xl animate-in slide-in-from-top-5 overflow-hidden hover:scale-[1.02] active:scale-95 transition-all"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 animate-gradient-x bg-[length:200%_auto]"></div>
-              <div className="absolute inset-0 transition-all duration-500 bg-gradient-to-r from-blue-400/0 via-purple-400/0 to-pink-400/0 group-hover:from-blue-400/30 group-hover:via-purple-400/30 group-hover:to-pink-400/30"></div>
-              <LogIn size={22} className="relative z-10" />
-              <span className="relative z-10 text-lg">Sign In / Register</span>
-            </button>
-          )}
+          ) : null}
 
           {/* 🔗 Navigation Links */}
           <div className="relative z-10 flex flex-col w-full max-w-md gap-3 mx-auto mb-6">
@@ -484,19 +454,6 @@ const AppNavbar: React.FC<NavbarProps> = ({ isDarkMode, toggleTheme }) => {
                 <ArrowRight className="text-white transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-1" size={18} />
               </div>
             </button>
-
-            {/* 🌟 GitHub Button */}
-            <div className="flex justify-center col-span-2 py-4">
-              <div className="relative w-full group">
-                <div className="absolute transition-all duration-700 -inset-1 bg-gradient-to-r from-purple-500/0 via-pink-500/0 to-purple-500/0 group-hover:from-purple-500/20 group-hover:via-pink-500/20 group-hover:to-purple-500/20 rounded-3xl blur-xl"></div>
-                <GitHubStarButton 
-                  owner={st.socials.githubRepo.split("/")[0]} 
-                  repo={st.socials.githubRepo.split("/")[1] || ""} 
-                  stars={0} 
-                  className="relative justify-center w-full py-4 text-sm font-bold transition-all duration-300 shadow-xl hover:shadow-2xl"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>

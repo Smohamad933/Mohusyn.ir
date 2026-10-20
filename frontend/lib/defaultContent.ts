@@ -23,10 +23,10 @@ export const DEFAULT_CONTENT: Content = {
       { emoji: '🇮🇷', label: 'Based in', value: 'Iran' },
       { emoji: '🎨', label: 'Loves', value: 'Design & Code' },
     ],
-    socials: { github: 'https://github.com/Smohamad933', facebook: '', linkedin: '', instagram: '', youtube: '', email: 'hello@mohusyn.ir', phone: '', whatsapp: '', location: 'Tehran, Iran', githubRepo: 'Smohamad933/Mohusyn.ir' },
+    socials: { github: '', facebook: '', linkedin: '', instagram: '', youtube: '', email: 'hello@mohusyn.ir', phone: '', whatsapp: '', location: 'Tehran, Iran', githubRepo: '' },
     stack: [
       { name: 'React', icon: '⚛️' }, { name: 'TypeScript', icon: '🟦' }, { name: 'Tailwind', icon: '🌊' }, { name: 'Node.js', icon: '🟢' },
-      { name: 'PHP', icon: '🐘' }, { name: 'Figma', icon: '🎨' }, { name: 'VS Code', icon: '💙' }, { name: 'Github', icon: '🐙' },
+      { name: 'PHP', icon: '🐘' }, { name: 'Figma', icon: '🎨' }, { name: 'VS Code', icon: '💙' },
     ],
     about: {
       kicker: 'Innovator',

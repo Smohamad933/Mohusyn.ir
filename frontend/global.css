@@ -420,3 +420,35 @@ canvas#canvas {
     font-size: 13px;
   }
 }
+/* ───────── Square-grid page background ───────── */
+:root { --grid-x: 50vw; --grid-y: 30vh; --grid-line: rgba(0, 0, 0, 0.07); --grid-line-strong: rgba(0, 0, 0, 0.12); --grid-base: #fafafa; }
+.dark { --grid-line: rgba(255, 255, 255, 0.055); --grid-line-strong: rgba(255, 255, 255, 0.10); --grid-base: #000; }
+.grid-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--grid-base); transition: background .3s; }
+.grid-bg-lines {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.grid-bg-spot {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(to right, var(--grid-line-strong) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line-strong) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(360px circle at var(--grid-x) var(--grid-y), #000 0%, transparent 70%);
+  mask-image: radial-gradient(360px circle at var(--grid-x) var(--grid-y), #000 0%, transparent 70%);
+}
+.grid-bg-cell { position: absolute; margin: 1px 0 0 1px; border-radius: 2px; opacity: 0; animation: grid-cell-glow ease-in-out infinite; }
+.grid-bg-cell.violet { background: rgba(139, 92, 246, 0.22); box-shadow: 0 0 24px rgba(139, 92, 246, 0.35); }
+.grid-bg-cell.pink { background: rgba(236, 72, 153, 0.18); box-shadow: 0 0 24px rgba(236, 72, 153, 0.3); }
+.dark .grid-bg-cell.violet { background: rgba(139, 92, 246, 0.16); }
+.dark .grid-bg-cell.pink { background: rgba(236, 72, 153, 0.14); }
+@keyframes grid-cell-glow { 0%, 100% { opacity: 0; } 40%, 60% { opacity: 1; } }
+.grid-bg-fade {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(900px 500px at 50% -10%, rgba(99, 102, 241, 0.10), transparent 70%),
+    linear-gradient(to bottom, transparent 70%, var(--grid-base) 100%);
+}
+/* Let the grid show through the page sections (their cards keep their own backgrounds). */
+.has-grid-bg section[class*="bg-"] { background-color: transparent !important; }
+.has-grid-bg footer[class*="bg-"] { background-color: transparent !important; }
+.has-grid-bg #root > main { background-color: transparent !important; }

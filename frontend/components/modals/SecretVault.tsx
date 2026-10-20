@@ -1,0 +1,457 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { 
+  Search, X, Lock, Grid, Play, Video, Sparkles, Command, 
+  ArrowRight, Folder, ArrowLeft, ChevronLeft, ChevronRight,
+  Share2, Check // 👈 Added sharing icons
+} from 'lucide-react';
+import { api } from '../../lib/api';
+
+interface MediaItem {
+  type: 'image' | 'video' | 'folder';
+  src?: string;
+  title: string;
+  thumbnail?: string;
+  items?: MediaItem[];
+}
+
+const SecretVault: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [currentCode, setCurrentCode] = useState(''); // 👈 Track current secret code
+  const [message, setMessage] = useState('');
+  
+  const [showGallery, setShowGallery] = useState(false);
+  const [galleryItems, setGalleryItems] = useState<MediaItem[]>([]);
+  const [galleryTitle, setGalleryTitle] = useState('');
+  
+  const [showPlayer, setShowPlayer] = useState(false);
+  const [currentMedia, setCurrentMedia] = useState<MediaItem | null>(null);
+  const [galleryHistory, setGalleryHistory] = useState<{items: MediaItem[], title: string}[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [copied, setCopied] = useState(false); // 👈 Track copy status
+
+  const secretCodes: { [key: string]: { 
+      msg: string, type: 'text' | 'media' | 'gallery', src?: string, mediaType?: 'image' | 'video', items?: MediaItem[], action?: () => void 
+  } } = {
+    "magic": { msg: "✨ You found the hidden magic!", type: 'text' },
+    "intro": { msg: "🎬 Playing Intro...", type: 'media', mediaType: 'video', src: '/intro.mp4' },
+  };
+
+  const openSecretSearch = () => {
+    setIsOpen(true);
+    setMessage('');
+    setQuery('');
+    setCurrentCode('');
+    setShowGallery(false);
+    setShowPlayer(false);
+    setGalleryHistory([]);
+  };
+
+  const closeAll = () => {
+    if (showPlayer) setShowPlayer(false);
+    else if (showGallery) setShowGallery(false);
+    else setIsOpen(false);
+    setGalleryHistory([]);
+    setCurrentCode('');
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsOpen((prev) => !prev);
+      }
+      if (e.key === 'Escape') closeAll();
+    };
+    const handleNavbarSignal = () => openSecretSearch();
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('open-secret-search', handleNavbarSignal);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('open-secret-search', handleNavbarSignal);
+    };
+  }, [showPlayer, showGallery]);
+
+  // ── 🔥 Copy Deep Link Logic ──
+  const handleCopyLink = () => {
+    const baseUrl = window.location.origin;
+    let shareUrl = `${baseUrl}/vault?code=${currentCode}`;
+    
+    // If inside a folder, append the folder name to the URL
+    if (galleryHistory.length > 0) {
+      shareUrl += `&folder=${encodeURIComponent(galleryTitle)}`;
+    }
+
+    navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getThumbnail = (src?: string, manualThumbnail?: string) => {
+    if (manualThumbnail) return manualThumbnail;
+    if (!src) return null; 
+    if (src.includes('youtube.com') || src.includes('youtu.be')) {
+      let videoId: string | null = null;
+      if (src.includes('embed/')) {
+        const embedParts = src.split('embed/');
+        videoId = (embedParts[1]?.split('?')[0]) || null;
+      }
+      else if (src.includes('v=')) {
+        const vParts = src.split('v=');
+        videoId = (vParts[1]?.split('&')[0]) || null;
+      }
+      else {
+        const pathParts = src.split('/');
+        videoId = (pathParts.length > 0 ? pathParts[pathParts.length - 1] : null) || null;
+      }
+      if (videoId && videoId.trim()) {
+        return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      }
+    }
+    return null;
+  };
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const lowerQuery = query.toLowerCase().trim();
+    setIsLoading(true);
+    setMessage('🔄 Checking Database...');
+    setCurrentCode(lowerQuery); // Save the code for sharing
+
+    try {
+      const { items: data } = await api<{ items: any[] }>('vault', { code: lowerQuery });
+
+      if (data && data.length > 0) {
+        const folderMap = new Map();
+        const directItems: MediaItem[] = [];
+
+        data.forEach((row: any) => {
+          const item: MediaItem = {
+            type: row.type,
+            src: row.src,
+            title: row.title,
+            thumbnail: row.thumbnail || (row.type === 'image' ? row.src : undefined)
+          };
+
+          if (row.folderName) {
+            if (!folderMap.has(row.folderName)) {
+              folderMap.set(row.folderName, {
+                type: 'folder',
+                title: row.folderName,
+                thumbnail: row.thumbnail || (row.type === 'image' ? row.src : undefined),
+                items: []
+              });
+            }
+            folderMap.get(row.folderName).items.push(item);
+            if (!folderMap.get(row.folderName).thumbnail) {
+              folderMap.get(row.folderName).thumbnail = row.thumbnail || (row.type === 'image' ? row.src : undefined);
+            }
+          } else {
+            directItems.push(item);
+          }
+        });
+
+        const finalItems = [...Array.from(folderMap.values()), ...directItems];
+
+        setMessage('📂 Access Granted!');
+        setTimeout(() => {
+          setGalleryItems(finalItems);
+          setGalleryTitle(lowerQuery.toUpperCase());
+          setShowGallery(true);
+          setIsLoading(false);
+        }, 800);
+
+      } else {
+        const result = secretCodes[lowerQuery];
+        if (result) {
+          setMessage(result.msg);
+          if (result.type === 'gallery' && result.items) {
+            setTimeout(() => {
+              setGalleryItems(result.items!);
+              setGalleryTitle(lowerQuery.toUpperCase());
+              setShowGallery(true);
+              setIsLoading(false);
+            }, 800);
+          } else if (result.type === 'media') {
+            setTimeout(() => {
+              setCurrentMedia({ type: result.mediaType!, src: result.src!, title: 'Secret Content' });
+              setShowPlayer(true);
+              setIsLoading(false);
+            }, 800);
+          } else if (result.action) {
+            setTimeout(() => {
+                result.action!();
+                setIsLoading(false);
+            }, 1000);
+          }
+        } else {
+          setMessage("❌ Access Denied: Invalid Code");
+          setIsLoading(false);
+          setCurrentCode('');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage('❌ Database Error. Check connection.');
+      setIsLoading(false);
+    }
+  };
+
+  const openMedia = (item: MediaItem) => {
+    if (item.type === 'folder' && item.items) {
+      setGalleryHistory([...galleryHistory, { items: galleryItems, title: galleryTitle }]);
+      setGalleryItems(item.items);
+      setGalleryTitle(item.title);
+    } else if (item.src) {
+      setCurrentMedia(item as MediaItem & { src: string });
+      setShowPlayer(true);
+    }
+  };
+
+  const handleBack = () => {
+    const newHistory = [...galleryHistory];
+    const prev = newHistory.pop();
+    if (prev) {
+      setGalleryItems(prev.items);
+      setGalleryTitle(prev.title);
+      setGalleryHistory(newHistory);
+    }
+  };
+
+  const isExternalVideo = (src?: string) => {
+    if (!src) return false; 
+    return src.includes('youtube') || src.includes('youtu.be') || src.includes('vimeo') || src.includes('drive.google.com');
+  };
+
+  // ── 🎛️ Slider Logic ──
+  const playableItems = galleryItems.filter(item => item.type !== 'folder');
+  const currentIndex = currentMedia ? playableItems.findIndex(item => item.src === currentMedia.src) : -1;
+
+  const handleNext = useCallback(() => {
+    if (currentIndex === -1 || playableItems.length <= 1) return;
+    const nextIndex = (currentIndex + 1) % playableItems.length;
+    setCurrentMedia(playableItems[nextIndex]);
+  }, [currentIndex, playableItems]);
+
+  const handlePrev = useCallback(() => {
+    if (currentIndex === -1 || playableItems.length <= 1) return;
+    const prevIndex = (currentIndex - 1 + playableItems.length) % playableItems.length;
+    setCurrentMedia(playableItems[prevIndex]);
+  }, [currentIndex, playableItems]);
+
+  useEffect(() => {
+    const handleKeyDownPlayer = (e: KeyboardEvent) => {
+      if (showPlayer) {
+        if (e.key === 'ArrowRight') handleNext();
+        if (e.key === 'ArrowLeft') handlePrev();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDownPlayer);
+    return () => window.removeEventListener('keydown', handleKeyDownPlayer);
+  }, [showPlayer, handleNext, handlePrev]);
+
+  if (!isOpen && !showGallery && !showPlayer) return null;
+
+  return (
+    <>
+      {/* ── SEARCH VIEW (MODAL) ── */}
+      {isOpen && !showGallery && !showPlayer && (
+        <div className="fixed inset-0 z-[99999] bg-[#050505]/90 backdrop-blur-2xl flex items-start justify-center pt-[20vh] animate-in fade-in duration-500">
+          <div className="absolute top-[10vh] left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none animate-pulse"></div>
+          <div className="relative z-10 w-full max-w-xl mx-4 group">
+            <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-pink-500/20 blur-xl opacity-50 transition duration-500 group-hover:opacity-100"></div>
+            <div className="relative overflow-hidden border shadow-2xl bg-black/40 border-white/10 rounded-3xl backdrop-blur-2xl">
+              <div className="flex items-center px-6 py-6 border-b border-white/5 bg-white/[0.02]">
+                <Command className={`w-6 h-6 mr-4 text-purple-400 ${isLoading ? 'animate-spin' : 'animate-pulse'}`} />
+                <form onSubmit={handleSearch} className="flex-1">
+                  <input 
+                    type="text" 
+                    autoFocus 
+                    disabled={isLoading}
+                    placeholder="Enter access code..." 
+                    className="w-full text-xl font-bold tracking-wide text-white bg-transparent border-none outline-none placeholder:text-slate-600 disabled:opacity-50" 
+                    value={query} 
+                    onChange={(e) => setQuery(e.target.value)} 
+                  />
+                </form>
+                <div className="flex items-center gap-2">
+                   <button onClick={closeAll} className="px-2.5 py-1 text-[10px] font-black tracking-widest uppercase rounded-md bg-white/5 text-slate-400 border border-white/10 shadow-inner hover:bg-white/10 hover:text-white transition-colors">ESC</button>
+                </div>
+              </div>
+              <div className="p-10 text-center min-h-[160px] flex flex-col items-center justify-center">
+                  {message ? (
+                      <div className="duration-500 animate-in slide-in-from-bottom-4 fade-in">
+                           <div className="inline-flex items-center justify-center w-14 h-14 mb-4 text-purple-400 rounded-2xl bg-purple-500/10 border border-purple-500/20 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+                              <Sparkles size={24} />
+                           </div>
+                          <p className="text-2xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-purple-200">{message}</p>
+                      </div>
+                  ) : (
+                      <div className="flex flex-col items-center duration-700 text-slate-500 animate-in fade-in">
+                          <div className="p-4 mb-4 border rounded-2xl bg-white/[0.02] border-white/5 shadow-inner">
+                              <Lock className="w-8 h-8 opacity-50" />
+                          </div>
+                          <p className="text-sm font-bold tracking-widest uppercase text-slate-400">Restricted Area</p>
+                          <p className="mt-2 text-xs font-medium tracking-wide opacity-50">Enter authorized passkey to continue</p>
+                      </div>
+                  )}
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── GALLERY VIEW (MODAL) ── */}
+      {showGallery && (
+        <div className="fixed inset-0 z-[100000] h-screen bg-[#050505] text-slate-200 animate-in zoom-in-95 duration-500 overflow-y-auto overflow-x-hidden overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <div className="fixed inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute top-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-purple-600/10 blur-[120px] animate-pulse"></div>
+              <div className="absolute bottom-[-10%] left-[-10%] w-[30vw] h-[30vw] rounded-full bg-blue-600/5 blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+            </div>
+
+            <div className="sticky top-0 z-50 px-6 py-5 border-b bg-black/60 backdrop-blur-2xl border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <div className="flex items-center justify-between max-w-6xl mx-auto">
+                    <div className="flex items-center gap-5">
+                        {galleryHistory.length > 0 && (
+                            <button onClick={handleBack} className="p-2.5 text-white transition-all rounded-xl bg-white/5 hover:bg-purple-600 hover:shadow-[0_0_15px_rgba(147,51,234,0.5)] border border-white/10">
+                                <ArrowLeft size={18} />
+                            </button>
+                        )}
+                        <h2 className="flex items-center gap-3 text-2xl font-black tracking-tight text-white md:text-3xl">
+                            <div className="p-2 border rounded-xl bg-purple-500/10 border-purple-500/20">
+                              <Grid className="text-purple-400" size={20} />
+                            </div>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400">{galleryTitle}</span>
+                        </h2>
+                    </div>
+
+                    {/* 🔗 Share & Close Buttons */}
+                    <div className="flex items-center gap-3">
+                      <button 
+                        onClick={handleCopyLink} 
+                        className="flex items-center gap-2 px-4 py-2.5 transition-all rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:bg-purple-600/20 hover:text-purple-400 hover:border-purple-500/40"
+                      >
+                        {copied ? <Check size={18} className="text-emerald-400" /> : <Share2 size={18} />}
+                        <span className="hidden text-sm font-bold sm:inline">{copied ? "Copied!" : "Share Link"}</span>
+                      </button>
+                      <button onClick={closeAll} className="p-2.5 transition-all rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white hover:rotate-90 hover:scale-110">
+                          <X size={20} />
+                      </button>
+                    </div>
+                </div>
+            </div>
+
+            <div key={`${galleryTitle}-${galleryHistory.length}`} className="relative z-10 grid w-full max-w-6xl grid-cols-1 gap-6 p-6 pb-24 mx-auto duration-700 md:grid-cols-2 lg:grid-cols-3 animate-in fade-in slide-in-from-bottom-8 zoom-in-90">
+                {galleryItems.map((item, idx) => {
+                    const thumbUrl = getThumbnail(item.src, item.thumbnail);
+                    return (
+                        <div key={idx} onClick={() => openMedia(item)} className="group relative overflow-hidden cursor-pointer bg-white/[0.02] border border-white/5 rounded-3xl aspect-video hover:border-purple-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_15px_40px_-10px_rgba(168,85,247,0.4)] backdrop-blur-md">
+                            <div className="relative w-full h-full">
+                                {thumbUrl ? (
+                                    <>
+                                        <img src={thumbUrl} alt={item.title} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" />
+                                        {item.type === 'video' && (
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <div className="flex items-center justify-center transition-all duration-500 border rounded-full shadow-2xl w-14 h-14 bg-black/40 backdrop-blur-md border-white/20 group-hover:bg-purple-600 group-hover:border-purple-400 group-hover:scale-125 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]">
+                                                    <Play className="w-5 h-5 ml-1 text-white" fill="currentColor" />
+                                                </div>
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <div className="flex items-center justify-center w-full h-full transition-colors bg-black/20 group-hover:bg-black/40">
+                                        {item.type === 'video' ? (
+                                            <div className="p-4 transition-all duration-500 border rounded-2xl bg-white/5 border-white/10 group-hover:bg-purple-500/20 group-hover:border-purple-500/40">
+                                              <Video className="w-8 h-8 transition-all text-slate-500 group-hover:text-purple-400 group-hover:scale-110" /> 
+                                            </div>
+                                        ) : item.type === 'folder' ? (
+                                            <div className="p-4 transition-all duration-500 border rounded-2xl bg-white/5 border-white/10 group-hover:bg-blue-500/20 group-hover:border-blue-500/40">
+                                              <Folder className="w-8 h-8 transition-all text-slate-500 group-hover:text-blue-400 group-hover:scale-110" />
+                                            </div>
+                                        ) : (
+                                            <img src={item.src} className="object-cover w-full h-full transition-opacity duration-500 opacity-60 group-hover:opacity-100" />
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="absolute inset-x-0 bottom-0 p-6 transition-all duration-500 translate-y-4 bg-gradient-to-t from-black via-black/80 to-transparent opacity-80 group-hover:opacity-100 group-hover:translate-y-0">
+                                <h3 className="flex items-center gap-3 text-lg font-bold text-white truncate drop-shadow-md">
+                                    {item.title} 
+                                    <ArrowRight className="w-4 h-4 text-purple-400 transition-all duration-500 -translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0" />
+                                </h3>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+      )}
+
+      {/* ── PLAYER VIEW (MODAL) ── */}
+      {showPlayer && currentMedia && (
+        <div className="fixed inset-0 z-[100001] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 animate-in fade-in duration-500">
+            
+            {/* 🔗 Share & Close Buttons for Player */}
+            <div className="absolute z-50 flex items-center gap-3 top-6 right-6">
+              <button 
+                onClick={handleCopyLink} 
+                className="p-3 transition-all duration-300 border rounded-full bg-white/5 text-slate-300 border-white/10 hover:bg-purple-600/20 hover:text-purple-400 hover:border-purple-500/40 hover:scale-110 backdrop-blur-md"
+              >
+                {copied ? <Check size={24} className="text-emerald-400" /> : <Share2 size={24} />}
+              </button>
+              <button 
+                onClick={() => setShowPlayer(false)} 
+                className="p-3 transition-all duration-300 border rounded-full bg-white/5 text-slate-300 border-white/10 hover:bg-white/10 hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] backdrop-blur-md"
+              >
+                  <X size={24} />
+              </button>
+            </div>
+
+            {/* 🎛️ Slider Navigation Buttons */}
+            {playableItems.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                  className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-50 p-3 md:p-4 transition-all duration-300 border rounded-full bg-black/40 text-slate-300 border-white/10 hover:bg-white/10 hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] backdrop-blur-md"
+                >
+                  <ChevronLeft size={28} />
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                  className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-50 p-3 md:p-4 transition-all duration-300 border rounded-full bg-black/40 text-slate-300 border-white/10 hover:bg-white/10 hover:text-white hover:scale-110 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] backdrop-blur-md"
+                >
+                  <ChevronRight size={28} />
+                </button>
+              </>
+            )}
+            
+            <div className="relative flex flex-col items-center w-full duration-500 max-w-7xl animate-in zoom-in-95">
+                <div className="relative w-full overflow-hidden bg-black border shadow-2xl rounded-3xl border-white/10 ring-1 ring-white/5 shadow-purple-500/10">
+                    {currentMedia.type === 'video' || currentMedia.type === 'folder' ? (
+                        isExternalVideo(currentMedia.src) || currentMedia.type === 'folder' ? 
+                        <iframe src={currentMedia.src} className="w-full aspect-video max-h-[85vh] bg-white" allowFullScreen allow="autoplay; encrypted-media"></iframe> : 
+                        <video src={currentMedia.src} controls autoPlay className="w-full h-auto max-h-[85vh]" />
+                    ) : (
+                        <img key={currentMedia.src} src={currentMedia.src} className="w-full h-auto max-h-[85vh] object-contain animate-in fade-in duration-300" />
+                    )}
+                </div>
+                <div className="mt-6 md:mt-8 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3">
+                  <h3 className="text-lg font-bold tracking-wide text-transparent md:text-xl bg-clip-text bg-gradient-to-r from-white to-slate-400">
+                    {currentMedia.title}
+                  </h3>
+                  {/* 📟 Counter Badge */}
+                  {playableItems.length > 1 && (
+                    <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs font-bold text-slate-400">
+                      {currentIndex + 1} / {playableItems.length}
+                    </span>
+                  )}
+                </div>
+            </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default SecretVault;

@@ -1,0 +1,11 @@
+node_modules/
+frontend/node_modules/
+site/uploads/*
+!site/uploads/.gitkeep
+!site/uploads/web.config
+site/data/_ratelimit.json
+site/data/_admin.json
+site/data/messages.json
+site/data/users.json
+site/data/stats.json
+.DS_Store

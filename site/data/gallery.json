@@ -1,0 +1,34 @@
+[
+  {
+    "id": "g1",
+    "src": "/img/gallery1.jpg",
+    "title": "Workspace",
+    "caption": "Late-night coding session.",
+    "category": "Work",
+    "published": true
+  },
+  {
+    "id": "g2",
+    "src": "/img/gallery2.jpg",
+    "title": "Speaking",
+    "caption": "Talking about design systems.",
+    "category": "Events",
+    "published": true
+  },
+  {
+    "id": "g3",
+    "src": "/img/gallery3.jpg",
+    "title": "Travel",
+    "caption": "Weekend escape.",
+    "category": "Life",
+    "published": true
+  },
+  {
+    "id": "g4",
+    "src": "/img/gallery4.jpg",
+    "title": "Coffee",
+    "caption": "Fuel for creativity.",
+    "category": "Life",
+    "published": true
+  }
+]

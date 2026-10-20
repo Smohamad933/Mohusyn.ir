@@ -1,0 +1,281 @@
+{
+  "siteName": "MOHUSYN",
+  "firstName": "Mohusyn",
+  "fullName": "Mohammad Hosein",
+  "tagline": "Designer & Developer",
+  "subtitle": "Design with purpose, build with care.",
+  "description": "Turning ideas into reality with design, code and creative thinking.",
+  "heroPrefix": "I am a",
+  "roles": [
+    "Web Developer",
+    "UI/UX Designer",
+    "Creative Coder"
+  ],
+  "heroImage": "/img/hero.jpg",
+  "aboutImage": "/img/about.jpg",
+  "ogImage": "/img/og-image.jpg",
+  "bannerImage": "",
+  "showBanner": false,
+  "ctaPrimary": {
+    "label": "View My Projects",
+    "href": "#projects"
+  },
+  "ctaSecondary": {
+    "label": "My Resume | Download CV",
+    "href": "/uploads/resume.pdf",
+    "show": true
+  },
+  "badges": [
+    {
+      "emoji": "💻",
+      "label": "Role",
+      "value": "Full Stack Dev"
+    },
+    {
+      "emoji": "🇮🇷",
+      "label": "Based in",
+      "value": "Iran"
+    },
+    {
+      "emoji": "🎨",
+      "label": "Loves",
+      "value": "Design & Code"
+    }
+  ],
+  "socials": {
+    "github": "https://github.com/Smohamad933",
+    "facebook": "",
+    "linkedin": "",
+    "instagram": "",
+    "youtube": "",
+    "email": "hello@mohusyn.ir",
+    "phone": "",
+    "whatsapp": "",
+    "location": "Tehran, Iran",
+    "githubRepo": "Smohamad933/Mohusyn.ir"
+  },
+  "stack": [
+    {
+      "name": "React",
+      "icon": "⚛️"
+    },
+    {
+      "name": "TypeScript",
+      "icon": "🟦"
+    },
+    {
+      "name": "Tailwind",
+      "icon": "🌊"
+    },
+    {
+      "name": "Node.js",
+      "icon": "🟢"
+    },
+    {
+      "name": "PHP",
+      "icon": "🐘"
+    },
+    {
+      "name": "Figma",
+      "icon": "🎨"
+    },
+    {
+      "name": "VS Code",
+      "icon": "💙"
+    },
+    {
+      "name": "Github",
+      "icon": "🐙"
+    }
+  ],
+  "about": {
+    "kicker": "Innovator",
+    "roleLine": "Designer, Developer & Creative Technologist 🚀",
+    "p1": "Hi, I'm **Mohusyn**, a designer and developer from Iran. My world revolves around clean interfaces and thoughtful code. I don't just build websites; I craft experiences.",
+    "p2": "From brand identities to full-stack web apps, I transform complex ideas into reality using modern web technologies.",
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Projects"
+      },
+      {
+        "value": "5+",
+        "label": "Yrs Experience"
+      },
+      {
+        "value": "3+",
+        "label": "Tech Domains"
+      }
+    ],
+    "tech": [
+      "React",
+      "TypeScript",
+      "PHP",
+      "Tailwind",
+      "Figma",
+      "Node.js",
+      "UI / UX"
+    ],
+    "cards": [
+      {
+        "title": "Education",
+        "text": "B.Sc. · Computer Engineering"
+      },
+      {
+        "title": "Design & Motion",
+        "text": "Figma, After Effects, Branding"
+      }
+    ],
+    "topSkill": "Full-Stack Dev",
+    "passion": "Design & Motion",
+    "country": "Iran 🇮🇷",
+    "openToWork": true
+  },
+  "sectionTitles": {
+    "projects": {
+      "title": "Featured Projects",
+      "subtitle": "A showcase of my journey through design, web and creative coding."
+    },
+    "resources": {
+      "title": "Study Resources",
+      "subtitle": "Download my personal notes, templates and materials for free."
+    },
+    "feed": {
+      "title": "Latest from Instagram",
+      "subtitle": "Follow {name} for daily updates"
+    },
+    "marquee": {
+      "title": "Powering My Workflow",
+      "subtitle": ""
+    },
+    "timeline": {
+      "title": "Journey of Milestones",
+      "subtitle": "A chronological look at my academic and professional evolution."
+    },
+    "testimonials": {
+      "title": "People Love It",
+      "subtitle": "Real feedback from real people — see why they keep coming back."
+    },
+    "contact": {
+      "title": "Let's Connect",
+      "subtitle": "I'm always open to discussing new projects & ideas"
+    },
+    "gallery": {
+      "title": "Photo Gallery",
+      "subtitle": "Moments, places and behind-the-scenes."
+    }
+  },
+  "sections": {
+    "about": true,
+    "projects": true,
+    "resources": true,
+    "feed": true,
+    "timeline": true,
+    "testimonials": true,
+    "contact": true,
+    "marquee": true,
+    "gallery": true,
+    "tools": true,
+    "vault": true,
+    "music": true,
+    "dock": true,
+    "island": true,
+    "preloader": true,
+    "welcome": true,
+    "contextMenu": true
+  },
+  "feedbackStats": {
+    "satisfaction": "97",
+    "reviews": "240+",
+    "rating": "5",
+    "verified": "180+",
+    "footer": "Trusted by 200+ clients"
+  },
+  "contact": {
+    "availability": "Available for Projects",
+    "projectsDone": "15+ Successful"
+  },
+  "feed": {
+    "network": "Instagram",
+    "profileUrl": "https://instagram.com/",
+    "profilePic": ""
+  },
+  "footer": {
+    "text": "Made with",
+    "quote": "Transforming ideas into reality through design and code. Building the future, one project at a time."
+  },
+  "music": {
+    "autoplay": false,
+    "folders": [
+      {
+        "key": "songs",
+        "label": "Songs",
+        "emoji": "🎵"
+      },
+      {
+        "key": "focus",
+        "label": "Focus",
+        "emoji": "🎧"
+      },
+      {
+        "key": "podcast",
+        "label": "Podcasts",
+        "emoji": "🎙️",
+        "spooky": false
+      }
+    ],
+    "tracks": [
+      {
+        "id": "t1",
+        "title": "Blinding Lights",
+        "artist": "The Weeknd",
+        "url": "https://www.youtube.com/watch?v=4NRXx6U8ABQ",
+        "cover": "",
+        "category": "songs"
+      },
+      {
+        "id": "t2",
+        "title": "Starboy",
+        "artist": "The Weeknd",
+        "url": "https://www.youtube.com/watch?v=34Na4j8AVgA",
+        "cover": "",
+        "category": "songs"
+      },
+      {
+        "id": "t3",
+        "title": "Lo-fi hip hop radio",
+        "artist": "Lofi Girl",
+        "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+        "cover": "",
+        "category": "focus"
+      },
+      {
+        "id": "t4",
+        "title": "Deep Focus",
+        "artist": "Chillhop",
+        "url": "https://www.youtube.com/watch?v=5yx6BWlEVcY",
+        "cover": "",
+        "category": "focus"
+      },
+      {
+        "id": "t5",
+        "title": "Design Podcast #1",
+        "artist": "Mohusyn",
+        "url": "https://www.youtube.com/watch?v=Ivy3Tdx2Q7g",
+        "cover": "",
+        "category": "podcast"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Mohusyn | Designer & Developer",
+    "description": "Portfolio of Mohusyn — designer, developer and creative technologist.",
+    "keywords": "Mohusyn, web developer, UI designer, portfolio, Iran",
+    "url": "https://www.mohusyn.ir"
+  },
+  "welcome": {
+    "enabled": true,
+    "text": "Welcome to my digital space ✨"
+  },
+  "vaultPassword": "1234"
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "v1",
+    "secretCode": "hello",
+    "type": "image",
+    "src": "/img/gallery1.jpg",
+    "title": "Welcome secret",
+    "thumbnail": "",
+    "folderName": "",
+    "published": true
+  },
+  {
+    "id": "v2",
+    "secretCode": "hello",
+    "type": "image",
+    "src": "/img/gallery2.jpg",
+    "title": "Behind the scenes",
+    "thumbnail": "",
+    "folderName": "Backstage",
+    "published": true
+  },
+  {
+    "id": "v3",
+    "secretCode": "hello",
+    "type": "video",
+    "src": "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+    "title": "Focus stream",
+    "thumbnail": "",
+    "folderName": "Backstage",
+    "published": true
+  }
+]

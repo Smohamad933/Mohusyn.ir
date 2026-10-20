@@ -1,0 +1,26 @@
+[
+  {
+    "id": "pg1",
+    "slug": "privacy",
+    "title": "Privacy Policy",
+    "body": "<h2>Privacy Policy</h2><p>This website collects only the information you voluntarily provide through the contact form (name, email, message) and anonymous usage statistics. Your data is never sold or shared with third parties.</p><h3>Cookies</h3><p>A session cookie is used only when you sign in. Theme preference is stored in your browser's local storage.</p><h3>Contact</h3><p>Questions? Use the contact form on the home page.</p>",
+    "updatedAt": "2026-01-01",
+    "published": true
+  },
+  {
+    "id": "pg2",
+    "slug": "terms",
+    "title": "Terms & Conditions",
+    "body": "<h2>Terms & Conditions</h2><p>All content, designs and code showcased on this website are the intellectual property of the site owner unless stated otherwise. Free resources are provided \"as is\" for personal and educational use.</p>",
+    "updatedAt": "2026-01-01",
+    "published": true
+  },
+  {
+    "id": "pg3",
+    "slug": "support",
+    "title": "Help & Support",
+    "body": "<h2>Help & Support</h2><p>Need help with a download, a project inquiry or a collaboration? Send a message through the contact form and you will get a reply within 48 hours.</p><ul><li>Project inquiries</li><li>Resource downloads</li><li>Bug reports for the site</li></ul>",
+    "updatedAt": "2026-01-01",
+    "published": true
+  }
+]

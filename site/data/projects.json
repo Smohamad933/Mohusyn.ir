@@ -1,0 +1,50 @@
+[
+  {
+    "id": "p1",
+    "title": "Notch for Windows",
+    "meta": "Flagship Product",
+    "action": "Explore Now",
+    "image": "/img/project1.jpg",
+    "url": "#",
+    "featured": true,
+    "description": "Bring the elegant Dynamic Island experience to your PC. A seamless, fully functional and beautifully designed notch for Windows 10 & 11.",
+    "videoUrl": "",
+    "published": true
+  },
+  {
+    "id": "p2",
+    "title": "Stealth GPS Tracker",
+    "meta": "Python & Flask",
+    "action": "View Code",
+    "image": "/img/project2.jpg",
+    "url": "#",
+    "published": true
+  },
+  {
+    "id": "p3",
+    "title": "Smart Portfolio CMS",
+    "meta": "React & PHP",
+    "action": "Visit Site",
+    "image": "/img/project3.jpg",
+    "url": "#",
+    "published": true
+  },
+  {
+    "id": "p4",
+    "title": "Brand Identity Kit",
+    "meta": "Branding",
+    "action": "Explore",
+    "image": "/img/project4.jpg",
+    "url": "#",
+    "published": true
+  },
+  {
+    "id": "p5",
+    "title": "Rhythm of Peace",
+    "meta": "Content Creation",
+    "action": "Visit Page",
+    "image": "/img/project5.jpg",
+    "url": "#",
+    "published": true
+  }
+]

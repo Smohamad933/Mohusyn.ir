@@ -1,0 +1,32 @@
+[
+  {
+    "id": "f1",
+    "image": "/img/post1.jpg",
+    "date": "January 20, 2026",
+    "text": "Finally, my personal portfolio website is live! Built with React, Vite and Tailwind CSS. Would love your feedback! 🚀💻",
+    "likes": 120,
+    "comments": 45,
+    "url": "#",
+    "published": true
+  },
+  {
+    "id": "f2",
+    "image": "/img/post2.jpg",
+    "date": "December 16, 2025",
+    "text": "New brand identity project shipped. Minimal, bold and timeless. 🎨",
+    "likes": 250,
+    "comments": 82,
+    "url": "#",
+    "published": true
+  },
+  {
+    "id": "f3",
+    "image": "/img/post3.jpg",
+    "date": "November 10, 2025",
+    "text": "Learning something new every day... coding is love! 💻☕ #WebDevelopment",
+    "likes": 120,
+    "comments": 12,
+    "url": "#",
+    "published": true
+  }
+]

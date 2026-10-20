@@ -1,0 +1,68 @@
+[
+  {
+    "id": "c1",
+    "name": "Sara Ahmadi",
+    "role": "Product Manager",
+    "text": "Amazing work! The website is fast and user friendly. I loved the attention to detail.",
+    "avatar": "",
+    "rating": 5,
+    "verified": true,
+    "createdAt": "2026-02-01",
+    "approved": true
+  },
+  {
+    "id": "c2",
+    "name": "Ali Rezaei",
+    "role": "UI/UX Designer",
+    "text": "The dark-mode colour combination is just wow! Very easy on the eyes. Keep it up!",
+    "avatar": "",
+    "rating": 5,
+    "verified": true,
+    "createdAt": "2026-01-28",
+    "approved": true
+  },
+  {
+    "id": "c3",
+    "name": "Niloofar K.",
+    "role": "Content Creator",
+    "text": "I've seen many portfolios, but such smooth animations are rare. Very professional work.",
+    "avatar": "",
+    "rating": 5,
+    "verified": false,
+    "createdAt": "2026-01-20",
+    "approved": true
+  },
+  {
+    "id": "c4",
+    "name": "Reza Moradi",
+    "role": "Software Engineer",
+    "text": "Clean code structure. A perfect example of a portfolio.",
+    "avatar": "",
+    "rating": 5,
+    "verified": true,
+    "createdAt": "2026-01-18",
+    "approved": true
+  },
+  {
+    "id": "c5",
+    "name": "Maryam S.",
+    "role": "Digital Marketer",
+    "text": "Beautiful and organised. Everything works perfectly on mobile too. Best of luck!",
+    "avatar": "",
+    "rating": 5,
+    "verified": true,
+    "createdAt": "2026-01-10",
+    "approved": true
+  },
+  {
+    "id": "c6",
+    "name": "Hamed T.",
+    "role": "Backend Developer",
+    "text": "Performance is outstanding! Never seen such a low loading time before.",
+    "avatar": "",
+    "rating": 5,
+    "verified": true,
+    "createdAt": "2026-01-05",
+    "approved": true
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "j1",
+    "year": "2026",
+    "title": "Innovation & Product",
+    "tag": "Future Goal",
+    "text": "Building a smart portfolio system and launching my first SaaS product.",
+    "published": true
+  },
+  {
+    "id": "j2",
+    "year": "2025",
+    "title": "Freelance Studio",
+    "tag": "Achievement",
+    "text": "Delivered 15+ websites and brand identities for clients across the globe.",
+    "published": true
+  },
+  {
+    "id": "j3",
+    "year": "2023",
+    "title": "Graduated",
+    "tag": "Academic",
+    "text": "B.Sc. in Computer Engineering.",
+    "published": true
+  },
+  {
+    "id": "j4",
+    "year": "2020",
+    "title": "Tech Spark",
+    "tag": "The Beginning",
+    "text": "Started my journey into web development & creative coding.",
+    "published": true
+  }
+]
